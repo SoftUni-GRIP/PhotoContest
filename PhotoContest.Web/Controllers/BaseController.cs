@@ -1,12 +1,12 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Microsoft.AspNet.Identity;
-using PhotoContest.Data.Contracts;
-using PhotoContest.Models;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+    using Data.Contracts;
+    using Microsoft.AspNet.Identity;
+    using PhotoContest.Models;
+
     public class BaseController : Controller
     {
         protected BaseController(IPhotoContestData data)

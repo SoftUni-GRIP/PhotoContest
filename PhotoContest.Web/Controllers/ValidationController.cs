@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using PhotoContest.Data.Contracts;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+    using Data.Contracts;
+
     public partial class ValidationController : BaseController
     {
         public ValidationController(IPhotoContestData data)

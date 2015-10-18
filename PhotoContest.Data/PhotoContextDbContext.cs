@@ -1,10 +1,10 @@
-﻿using System.Data.Entity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using PhotoContest.Data.Contracts;
-using PhotoContest.Models;
-
-namespace PhotoContest.Data
+﻿namespace PhotoContest.Data
 {
+    using System.Data.Entity;
+    using Contracts;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
+
     public class PhotoContextDbContext : IdentityDbContext<User>, IPhotoDbContext
     {
         public PhotoContextDbContext()

@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using PhotoContest.Models;
-
-namespace PhotoContest.Data.Contracts
+﻿namespace PhotoContest.Data.Contracts
 {
+    using System.Threading.Tasks;
+    using Models;
+
     public interface IPhotoContestData
     {
         IRepository<User> Users { get; }

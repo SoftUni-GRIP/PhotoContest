@@ -1,10 +1,10 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using PhotoContest.Data.Contracts;
-
-namespace PhotoContest.Data.Repositories
+﻿namespace PhotoContest.Data.Repositories
 {
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Contracts;
+
     public class GenericRepository<T> : IRepository<T> where T : class
     {
         private DbContext context;

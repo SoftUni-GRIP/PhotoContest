@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace PhotoContest.Data.Contracts
+﻿namespace PhotoContest.Data.Contracts
 {
+    using System.Threading.Tasks;
+
     public interface IPhotoDbContext
     {
         // TODO: Add IDSet<T>

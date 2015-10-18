@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using PhotoContest.Models.Contracts;
-    using PhotoContest.Models.Enums;
+    using Contracts;
+    using Enums;
 
     public class Contest : IEntity
     {

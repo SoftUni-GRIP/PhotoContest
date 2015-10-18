@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-
-namespace PhotoContest.Web.Infrastructure.Mappings
+﻿namespace PhotoContest.Web.Infrastructure.Mappings
 {
+    using AutoMapper;
+
     public interface IHaveCustomMappings
     {
         void CreateMappings(IConfiguration configuration);

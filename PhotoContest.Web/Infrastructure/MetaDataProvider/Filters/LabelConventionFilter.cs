@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Web.Mvc;
-
-namespace PhotoContest.Web.Infrastructure.MetaDataProvider.Filters
+﻿namespace PhotoContest.Web.Infrastructure.MetaDataProvider.Filters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    using System.Web.Mvc;
+
     public class LabelConventionFilter : IModelMetadataFilter
     {
         public void TransformMetadata(ModelMetadata metadata,

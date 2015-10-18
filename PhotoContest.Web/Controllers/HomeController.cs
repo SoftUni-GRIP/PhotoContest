@@ -1,8 +1,8 @@
-﻿using System.Web.Mvc;
-using PhotoContest.Data.Contracts;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
+    using System.Web.Mvc;
+    using Data.Contracts;
+
     public class HomeController : BaseController
     {
         public HomeController(IPhotoContestData data)

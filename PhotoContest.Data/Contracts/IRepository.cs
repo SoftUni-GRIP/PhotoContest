@@ -1,7 +1,7 @@
-﻿using System.Linq;
-
-namespace PhotoContest.Data.Contracts
+﻿namespace PhotoContest.Data.Contracts
 {
+    using System.Linq;
+
     public interface IRepository<T>
     {
         IQueryable<T> All();

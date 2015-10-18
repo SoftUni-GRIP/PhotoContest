@@ -1,31 +1,45 @@
-using System.Data.Entity.Migrations;
-
 namespace PhotoContest.Data.Migrations
 {
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
+
     internal sealed class Configuration : DbMigrationsConfiguration<PhotoContextDbContext>
     {
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = true;
-            #if DEBUG
+#if DEBUG
             this.AutomaticMigrationDataLossAllowed = true;
-            #endif
+#endif
         }
 
         protected override void Seed(PhotoContextDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            if (!context.Roles.Any())
+            {
+                this.SeedRoles(context);
+                this.SeedAmin(context);
+            }
+        }
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+        private void SeedRoles(PhotoContextDbContext context)
+        {
+            var store = new RoleStore<IdentityRole>(context);
+            var manager = new RoleManager<IdentityRole>(store);
+            var role = new IdentityRole { Name = "Administrator" };
+            manager.Create(role);
+        }
+
+        private void SeedAmin(PhotoContextDbContext context)
+        {
+            var store = new UserStore<User>(context);
+            var manager = new UserManager<User>(store);
+            var admin = new User { UserName = "admin", Email = "admin@abv.bg" };
+            manager.Create(admin, "password");
+            manager.AddToRole(admin.Id, "Administrator");
         }
     }
 }

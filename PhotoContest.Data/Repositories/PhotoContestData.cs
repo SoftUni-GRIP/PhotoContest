@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using PhotoContest.Data.Contracts;
-using PhotoContest.Models;
-
-namespace PhotoContest.Data.Repositories
+﻿namespace PhotoContest.Data.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Contracts;
+    using Models;
+
     public class PhotoContestData : IPhotoContestData
     {
         private IPhotoDbContext context;

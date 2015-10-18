@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using WebGrease.Css.Extensions;
-
-namespace PhotoContest.Web.Infrastructure.MetaDataProvider
+﻿namespace PhotoContest.Web.Infrastructure.MetaDataProvider
 {
-   public class ExtensibleModelMetadataProvider
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
+    using WebGrease.Css.Extensions;
+
+    public class ExtensibleModelMetadataProvider
          : DataAnnotationsModelMetadataProvider
     {
         private readonly IModelMetadataFilter[] _metadataFilters;

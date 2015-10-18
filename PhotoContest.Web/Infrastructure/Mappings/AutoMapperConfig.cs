@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
-
-namespace PhotoContest.Web.Infrastructure.Mappings
+﻿namespace PhotoContest.Web.Infrastructure.Mappings
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using AutoMapper;
+
     public class AutoMapperConfig
     {
         private static ICollection<Assembly> assemblies;

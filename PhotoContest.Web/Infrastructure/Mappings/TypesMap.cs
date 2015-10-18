@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace PhotoContest.Web.Infrastructure.Mappings
+﻿namespace PhotoContest.Web.Infrastructure.Mappings
 {
+    using System;
+
     internal class TypesMap
     {
         public Type Source { get; set; }

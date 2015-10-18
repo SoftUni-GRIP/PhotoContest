@@ -1,8 +1,8 @@
-﻿using System;
-using System.Web;
-
-namespace PhotoContest.Web.Infrastructure.CacheService
+﻿namespace PhotoContest.Web.Infrastructure.CacheService
 {
+    using System;
+    using System.Web;
+
     public class BaseCacheService
     {
         protected T Get<T>(string cacheId, Func<T> getItemcallback) where T : class
