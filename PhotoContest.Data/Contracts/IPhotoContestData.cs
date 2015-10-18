@@ -7,6 +7,8 @@
     {
         IRepository<User> Users { get; }
 
+        IRepository<Contest> Contests { get; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

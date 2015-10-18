@@ -1,4 +1,6 @@
-﻿namespace PhotoContest.Data
+﻿using System;
+
+namespace PhotoContest.Data
 {
     using System.Data.Entity;
     using Contracts;
@@ -7,6 +9,8 @@
 
     public class PhotoContextDbContext : IdentityDbContext<User>, IPhotoDbContext
     {
+        public IDbSet<Contest> Contests { get; set; }
+
         public PhotoContextDbContext()
             : base("PhotoContest", throwIfV1Schema: false)
         {
@@ -19,8 +23,13 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasMany(x => x.Contests).WithMany(x => x.Winners);
-            modelBuilder.Entity<User>().HasMany(x => x.Contests).WithMany(x => x.Participants);
+            modelBuilder.Properties<DateTime>()
+                .Configure(c => c.HasColumnType("datetime2"));
+            modelBuilder.Entity<User>().HasMany(x => x.Contests)
+                .WithMany(x => x.Winners);
+            modelBuilder.Entity<User>().HasMany(x => x.Contests)
+                .WithMany(x => x.Participants);
+            
             base.OnModelCreating(modelBuilder);
         }
     }

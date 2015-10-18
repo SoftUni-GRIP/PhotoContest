@@ -214,6 +214,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ContestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
@@ -239,6 +240,8 @@
     <Compile Include="Models\AccountModels\ResetPasswordViewModel.cs" />
     <Compile Include="Models\AccountModels\SendCodeViewModel.cs" />
     <Compile Include="Models\AccountModels\VerifyCodeViewModel.cs" />
+    <Compile Include="Models\ContestModels\InputModels\CreateContestInputModel.cs" />
+    <Compile Include="Models\ContestModels\ViewModels\CreateContestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -305,6 +308,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Contest\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

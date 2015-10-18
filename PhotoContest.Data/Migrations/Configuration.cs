@@ -18,11 +18,11 @@ namespace PhotoContest.Data.Migrations
 
         protected override void Seed(PhotoContextDbContext context)
         {
-            if (!context.Roles.Any())
-            {
-                this.SeedRoles(context);
-                this.SeedAmin(context);
-            }
+            //if (!context.Roles.Any())
+            //{
+            //    this.SeedRoles(context);
+            //    this.SeedAmin(context);
+            //}
         }
 
         private void SeedRoles(PhotoContextDbContext context)
