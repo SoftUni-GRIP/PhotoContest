@@ -1,7 +1,6 @@
 namespace PhotoContest.Data.Migrations
 {
     using System.Data.Entity.Migrations;
-    using System.Linq;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
@@ -10,9 +9,9 @@ namespace PhotoContest.Data.Migrations
     {
         public Configuration()
         {
-            this.AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = true;
 #if DEBUG
-            this.AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationDataLossAllowed = true;
 #endif
         }
 
@@ -29,7 +28,7 @@ namespace PhotoContest.Data.Migrations
         {
             var store = new RoleStore<IdentityRole>(context);
             var manager = new RoleManager<IdentityRole>(store);
-            var role = new IdentityRole { Name = "Administrator" };
+            var role = new IdentityRole {Name = "Administrator"};
             manager.Create(role);
         }
 
@@ -37,7 +36,7 @@ namespace PhotoContest.Data.Migrations
         {
             var store = new UserStore<User>(context);
             var manager = new UserManager<User>(store);
-            var admin = new User { UserName = "admin", Email = "admin@abv.bg" };
+            var admin = new User {UserName = "admin", Email = "admin@abv.bg"};
             manager.Create(admin, "password");
             manager.AddToRole(admin.Id, "Administrator");
         }

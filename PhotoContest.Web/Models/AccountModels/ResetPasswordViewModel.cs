@@ -17,7 +17,7 @@ namespace PhotoContest.Web.Models.AccountModels
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

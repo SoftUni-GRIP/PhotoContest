@@ -1,7 +1,8 @@
 ﻿using Microsoft.Owin;
 using PhotoContest.Web;
 
-[assembly: OwinStartup(typeof(Startup))]
+[assembly: OwinStartup(typeof (Startup))]
+
 namespace PhotoContest.Web
 {
     using Owin;

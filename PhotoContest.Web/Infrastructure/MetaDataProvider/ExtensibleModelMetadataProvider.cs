@@ -6,7 +6,7 @@
     using WebGrease.Css.Extensions;
 
     public class ExtensibleModelMetadataProvider
-         : DataAnnotationsModelMetadataProvider
+        : DataAnnotationsModelMetadataProvider
     {
         private readonly IModelMetadataFilter[] _metadataFilters;
 

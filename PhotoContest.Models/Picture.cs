@@ -2,15 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using Contracts;
 
-    public class Picture
+    public class Picture : IHaveCreationDate, IEntity
     {
         private ICollection<Vote> votes;
 
         public Picture()
         {
-            this.votes = new HashSet<Vote>();
-            this.UploadedOn = DateTime.Now;
+            votes = new HashSet<Vote>();
         }
 
         public int Id { get; set; }
@@ -25,19 +25,13 @@
 
         public virtual User User { get; set; }
 
-        public DateTime UploadedOn { get; set; }
-
         public virtual ICollection<Vote> Votes
         {
-            get
-            {
-                return this.votes;
-            }
+            get { return votes; }
 
-            set
-            {
-                this.votes = value;
-            }
+            set { votes = value; }
         }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

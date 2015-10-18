@@ -2,14 +2,10 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Contracts;
 
-    public class Vote
+    public class Vote : IHaveCreationDate, IEntity
     {
-        public Vote()
-        {
-            this.VotedOn = DateTime.Now;
-        }
-
         public int Id { get; set; }
 
         // TODO one vote per user, [1 - 10] unvote
@@ -20,10 +16,10 @@
 
         public virtual User User { get; set; }
 
-        public DateTime VotedOn { get; set; }
-
         public int PictureId { get; set; }
 
         public virtual Picture Picture { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

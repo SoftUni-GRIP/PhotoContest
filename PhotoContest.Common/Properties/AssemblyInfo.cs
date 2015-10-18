@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("PhotoContest.Models")]
+[assembly: AssemblyTitle("PhotoContest.Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PhotoContest.Models")]
+[assembly: AssemblyProduct("PhotoContest.Common")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("04514d1d-8387-4c06-99ea-5ef77eb676da")]
+[assembly: Guid("717c7ffc-25b5-4277-93ff-75d1a1707c6e")]
 
 // Version information for an assembly consists of the following four values:
 //

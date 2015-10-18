@@ -58,9 +58,7 @@
   <ItemGroup>
     <Compile Include="Contest.cs" />
     <Compile Include="Contracts\IEntity.cs" />
-    <Compile Include="Enums\ContestStatusType.cs" />
-    <Compile Include="Enums\ParticipationStrategyType.cs" />
-    <Compile Include="Enums\VotingStrategyType.cs" />
+    <Compile Include="Contracts\IHaveCreationDate.cs" />
     <Compile Include="Picture.cs" />
     <Compile Include="Reward.cs" />
     <Compile Include="User.cs" />
@@ -71,7 +69,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PhotoContest.Common\PhotoContest.Common.csproj">
+      <Project>{b8d76f11-b2de-4bc1-97b3-5d2b93b44af7}</Project>
+      <Name>PhotoContest.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

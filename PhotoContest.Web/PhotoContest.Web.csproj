@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <ApplicationInsightsResourceId>/subscriptions/1a98dcda-8b05-4601-8369-a881c9ee58f7/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/PhotoContest.Web</ApplicationInsightsResourceId>
+    <NuGetPackageImportStamp>1ec3bf6d</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -241,7 +242,6 @@
     <Compile Include="Models\AccountModels\SendCodeViewModel.cs" />
     <Compile Include="Models\AccountModels\VerifyCodeViewModel.cs" />
     <Compile Include="Models\ContestModels\InputModels\CreateContestInputModel.cs" />
-    <Compile Include="Models\ContestModels\ViewModels\CreateContestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -312,6 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\ContestModels\ViewModels\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +322,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PhotoContest.Common\PhotoContest.Common.csproj">
+      <Project>{b8d76f11-b2de-4bc1-97b3-5d2b93b44af7}</Project>
+      <Name>PhotoContest.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhotoContest.Data\PhotoContest.Data.csproj">
       <Project>{a7a29466-0e3a-4375-a78f-67ef4b20f02f}</Project>
       <Name>PhotoContest.Data</Name>
@@ -358,6 +363,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\StyleCop.Analyzers.1.0.0-beta014\build\StyleCop.Analyzers.targets" Condition="Exists('..\packages\StyleCop.Analyzers.1.0.0-beta014\build\StyleCop.Analyzers.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\StyleCop.Analyzers.1.0.0-beta014\build\StyleCop.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.Analyzers.1.0.0-beta014\build\StyleCop.Analyzers.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

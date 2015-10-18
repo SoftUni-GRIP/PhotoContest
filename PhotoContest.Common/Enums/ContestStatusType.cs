@@ -1,4 +1,4 @@
-﻿namespace PhotoContest.Models.Enums
+﻿namespace PhotoContest.Common.Enums
 {
     public enum ContestStatusType
     {

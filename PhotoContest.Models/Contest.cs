@@ -2,22 +2,23 @@
 {
     using System;
     using System.Collections.Generic;
+    using Common.Enums;
     using Contracts;
-    using Enums;
 
-    public class Contest : IEntity
+    public class Contest : IEntity, IHaveCreationDate
     {
-        private ICollection<User> winners;
-        private ICollection<Picture> pictures;
         private ICollection<User> participants;
+        private ICollection<Picture> pictures;
         private ICollection<Reward> rewards;
+        private ICollection<User> winners;
+
         public Contest()
         {
-            this.winners = new HashSet<User>();
-            this.pictures = new HashSet<Picture>();
-            this.participants = new HashSet<User>();
-            this.CreatedOn = DateTime.Now;
-            this.rewards = new HashSet<Reward>();
+            winners = new HashSet<User>();
+            pictures = new HashSet<Picture>();
+            participants = new HashSet<User>();
+            CreatedOn = DateTime.Now;
+            rewards = new HashSet<Reward>();
         }
 
         public int Id { get; set; }
@@ -28,9 +29,7 @@
 
         public ContestStatusType Status { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-
-        public string OwnerId{ get; set; }
+        public string OwnerId { get; set; }
 
         public virtual User Owner { get; set; }
 
@@ -38,7 +37,7 @@
         public int WinnersCount { get; set; }
 
         //public decimal Price { get; set; }
-        
+
         public VotingStrategyType VotingStrategyType { get; set; }
 
         public ParticipationStrategyType ParticipationStrategyType { get; set; }
@@ -52,53 +51,31 @@
 
         public virtual ICollection<Picture> Pictures
         {
-            get
-            {
-                return this.pictures;
-            }
+            get { return pictures; }
 
-            set
-            {
-                this.pictures = value;
-            }
+            set { pictures = value; }
         }
 
         public virtual ICollection<User> Participants
         {
-            get
-            {
-                return this.participants;
-            }
+            get { return participants; }
 
-            set
-            {
-                this.participants = value;
-            }
+            set { participants = value; }
         }
 
         public virtual ICollection<User> Winners
         {
-            get
-            {
-                return this.winners;
-            }
-            set
-            {
-                this.winners = value;
-            }
+            get { return winners; }
+            set { winners = value; }
         }
 
         public virtual ICollection<Reward> Rewards
         {
-            get
-            {
-                return this.rewards;
-            }
+            get { return rewards; }
 
-            set
-            {
-                this.rewards = value;
-            }
+            set { rewards = value; }
         }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

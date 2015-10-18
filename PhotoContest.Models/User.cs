@@ -10,7 +10,7 @@
     {
         public User()
         {
-            this.Rewards = new HashSet<Reward>();
+            Rewards = new HashSet<Reward>();
         }
 
         public virtual ICollection<Contest> Contests { get; set; }

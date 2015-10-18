@@ -4,21 +4,21 @@
     using System.Web.Mvc;
     using Data.Contracts;
 
-    public partial class ValidationController : BaseController
+    public class ValidationController : BaseController
     {
         public ValidationController(IPhotoContestData data)
             : base(data)
         {
         }
 
-        public virtual JsonResult IsUserNameExist(string userName)
+        public virtual JsonResult UserNameExist(string userName)
         {
             if (userName.Length < 4)
             {
-                return this.Json("Username must be minimum 4 characters long", JsonRequestBehavior.AllowGet);
+                return Json("Username must be minimum 4 characters long", JsonRequestBehavior.AllowGet);
             }
 
-            var currentUserName = this.Data.Users
+            var currentUserName = Data.Users
                 .All()
                 .Where(x => x.UserName == userName)
                 .Select(x => x.UserName)
@@ -26,20 +26,21 @@
 
             if (!string.IsNullOrEmpty(currentUserName))
             {
-                return this.Json(string.Format("Username {0} is already taken", currentUserName), JsonRequestBehavior.AllowGet);
+                return Json(string.Format("Username {0} is already taken", currentUserName),
+                    JsonRequestBehavior.AllowGet);
             }
 
-            return this.Json(true, currentUserName, JsonRequestBehavior.AllowGet);
+            return Json(true, currentUserName, JsonRequestBehavior.AllowGet);
         }
 
-        public virtual JsonResult IsEmailExist(string email)
+        public virtual JsonResult EmailExist(string email)
         {
             if (email.Length < 4)
             {
-                return this.Json(string.Format("Invalid email"), JsonRequestBehavior.AllowGet);
+                return Json("Invalid email", JsonRequestBehavior.AllowGet);
             }
 
-            var existingEmail = this.Data.Users
+            var existingEmail = Data.Users
                 .All()
                 .Where(x => x.Email == email)
                 .Select(x => x.Email)
@@ -47,10 +48,10 @@
 
             if (existingEmail != null)
             {
-                return this.Json(string.Format("Email {0} is already exists", existingEmail), JsonRequestBehavior.AllowGet);
+                return Json(string.Format("Email {0} is already exists", existingEmail), JsonRequestBehavior.AllowGet);
             }
 
-            return this.Json(true, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

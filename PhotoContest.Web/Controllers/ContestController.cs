@@ -3,8 +3,8 @@
     using System.Web.Mvc;
     using AutoMapper;
     using Data.Contracts;
-    using PhotoContest.Models;
     using Models.ContestModels.InputModels;
+    using PhotoContest.Models;
 
     [Authorize]
     public class ContestController : BaseController
@@ -21,20 +21,20 @@
         }
 
         [HttpPost]
-        public ActionResult Create(CreateContestInputModel model)
+        public ActionResult Create(ContestInputModel model)
         {
             //TODO: Extract check for model state in a Filter above thee
 
-            if (this.ModelState.IsValid && model != null)
+            if (ModelState.IsValid && model != null)
             {
-                var contest = Mapper.Map<CreateContestInputModel, Contest>(model);
-                contest.OwnerId = this.CurrentUser.Id;
+                var contest = Mapper.Map<ContestInputModel, Contest>(model);
+                contest.OwnerId = CurrentUser.Id;
 
-                this.Data.Contests.Add(contest);
-                this.Data.SaveChanges();
+                Data.Contests.Add(contest);
+                Data.SaveChanges();
 
                 //TODO: Remove magic strings
-                return this.RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);

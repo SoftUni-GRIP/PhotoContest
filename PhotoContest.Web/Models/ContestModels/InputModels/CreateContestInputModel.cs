@@ -2,11 +2,11 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using PhotoContest.Models.Enums;
-    using PhotoContest.Models;
+    using Common.Enums;
     using Infrastructure.Mappings;
+    using PhotoContest.Models;
 
-    public class CreateContestInputModel : IMapTo<Contest>
+    public class ContestInputModel : IMapTo<Contest>
     {
         [Required]
         public string Title { get; set; }

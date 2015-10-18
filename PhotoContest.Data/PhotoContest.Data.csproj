@@ -66,6 +66,10 @@
     <Compile Include="Repositories\PhotoContestData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PhotoContest.Common\PhotoContest.Common.csproj">
+      <Project>{b8d76f11-b2de-4bc1-97b3-5d2b93b44af7}</Project>
+      <Name>PhotoContest.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhotoContest.Models\PhotoContest.Models.csproj">
       <Project>{0dc59cb3-2e15-4128-9c9e-f636ec1aa61b}</Project>
       <Name>PhotoContest.Models</Name>

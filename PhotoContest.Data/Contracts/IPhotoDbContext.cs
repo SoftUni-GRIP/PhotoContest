@@ -1,15 +1,14 @@
-﻿using System.Data.Entity;
-using PhotoContest.Models;
-
-namespace PhotoContest.Data.Contracts
+﻿namespace PhotoContest.Data.Contracts
 {
+    using System.Data.Entity;
     using System.Threading.Tasks;
+    using Models;
 
     public interface IPhotoDbContext
     {
         // TODO: Add IDSet<T>
 
-        IDbSet<Contest> Contests { get; set; } 
+        IDbSet<Contest> Contests { get; set; }
 
         int SaveChanges();
 

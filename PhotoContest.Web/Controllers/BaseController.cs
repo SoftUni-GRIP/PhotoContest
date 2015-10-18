@@ -11,7 +11,7 @@
     {
         protected BaseController(IPhotoContestData data)
         {
-            this.Data = data;
+            Data = data;
         }
 
         protected IPhotoContestData Data { get; private set; }
@@ -21,10 +21,10 @@
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {
             var result = base.BeginExecute(requestContext, callback, state);
-            if (this.User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
-                var currentUserId = this.User.Identity.GetUserId();
-                this.CurrentUser = this.Data.Users.Find(currentUserId);
+                var currentUserId = User.Identity.GetUserId();
+                CurrentUser = Data.Users.Find(currentUserId);
             }
 
             return result;

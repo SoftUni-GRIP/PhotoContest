@@ -8,52 +8,46 @@
 
     public class PhotoContestData : IPhotoContestData
     {
-        private IPhotoDbContext context;
-        private IDictionary<Type, object> repositories;
+        private readonly IPhotoDbContext context;
+        private readonly IDictionary<Type, object> repositories;
 
         public PhotoContestData(IPhotoDbContext context)
         {
             this.context = context;
-            this.repositories = new Dictionary<Type, object>();
+            repositories = new Dictionary<Type, object>();
         }
 
         public IRepository<User> Users
         {
-            get
-            {
-                return this.GetRepository<User>();
-            }
+            get { return GetRepository<User>(); }
         }
 
         public IRepository<Contest> Contests
         {
-            get
-            {
-                return this.GetRepository<Contest>();
-            }
+            get { return GetRepository<Contest>(); }
         }
 
         public int SaveChanges()
         {
-            return this.context.SaveChanges();
+            return context.SaveChanges();
         }
 
         public Task<int> SaveChangesAsync()
         {
-            return this.context.SaveChangesAsync();
+            return context.SaveChangesAsync();
         }
 
         private IRepository<T> GetRepository<T>() where T : class
         {
-            var type = typeof(T);
-            if (!this.repositories.ContainsKey(type))
+            var type = typeof (T);
+            if (!repositories.ContainsKey(type))
             {
-                var typeOfRepository = typeof(GenericRepository<T>);
-                var repository = Activator.CreateInstance(typeOfRepository, this.context);
-                this.repositories.Add(type, repository);
+                var typeOfRepository = typeof (GenericRepository<T>);
+                var repository = Activator.CreateInstance(typeOfRepository, context);
+                repositories.Add(type, repository);
             }
 
-            return (IRepository<T>)this.repositories[type];
+            return (IRepository<T>) repositories[type];
         }
     }
 }
