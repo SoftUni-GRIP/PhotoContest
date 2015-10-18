@@ -1,10 +1,11 @@
-﻿namespace PhotoContest.Data.Repositories
+﻿namespace PhotoContest.Data
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Contracts;
     using Models;
+    using Repositories;
 
     public class PhotoContestData : IPhotoContestData
     {

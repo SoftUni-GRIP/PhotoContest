@@ -223,6 +223,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CacheService\BaseCacheService.cs" />
+    <Compile Include="Infrastructure\CacheService\ContestCacheService.cs" />
+    <Compile Include="Infrastructure\CacheService\ICacheService.cs" />
     <Compile Include="Infrastructure\Mappings\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
@@ -242,6 +244,7 @@
     <Compile Include="Models\AccountModels\SendCodeViewModel.cs" />
     <Compile Include="Models\AccountModels\VerifyCodeViewModel.cs" />
     <Compile Include="Models\ContestModels\InputModels\CreateContestInputModel.cs" />
+    <Compile Include="Models\ContestModels\ViewModels\ContestBasicDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -309,10 +312,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Contest\Create.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ContestBasicDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ContestModels\ViewModels\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

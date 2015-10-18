@@ -1,3 +1,9 @@
-﻿@{
+﻿@model ICollection<PhotoContest.Web.Models.ContestModels.ViewModels.ContestBasicDetails>
+
+@{
     ViewBag.Title = "Home Page";
 }
+
+<div class="row">
+    @Html.DisplayForModel(Model)
+</div>

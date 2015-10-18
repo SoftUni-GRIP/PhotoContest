@@ -12,6 +12,7 @@ namespace PhotoContest.Web
     using Data;
     using Data.Contracts;
     using Data.Repositories;
+    using Infrastructure.CacheService;
     using Infrastructure.MetaDataProvider;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
@@ -70,6 +71,7 @@ namespace PhotoContest.Web
         {
             kernel.Bind<IPhotoContestData>().To<PhotoContestData>();
             kernel.Bind<IPhotoDbContext>().To<PhotoContextDbContext>().InRequestScope();
+            kernel.Bind<ICacheService>().To<ContestCacheService>();
 
             kernel.Bind<ModelMetadataProvider>().To<ExtensibleModelMetadataProvider>();
             kernel.Bind(k => k.FromThisAssembly()
