@@ -13,6 +13,7 @@
         public PhotoContextDbContext()
             : base("PhotoContest", false)
         {
+
         }
 
         public IDbSet<Contest> Contests { get; set; }
