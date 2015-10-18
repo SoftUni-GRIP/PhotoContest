@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace PhotoContest.Models
+﻿namespace PhotoContest.Models
 {
+    using System;
+    using System.Collections.Generic;
+
     public class Picture
     {
         private ICollection<Vote> votes;
@@ -9,6 +10,7 @@ namespace PhotoContest.Models
         public Picture()
         {
             this.votes = new HashSet<Vote>();
+            this.UploadedOn = DateTime.Now;
         }
 
         public int Id { get; set; }
@@ -22,6 +24,8 @@ namespace PhotoContest.Models
         public string UserId { get; set; }
 
         public virtual User User { get; set; }
+
+        public DateTime UploadedOn { get; set; }
 
         public virtual ICollection<Vote> Votes
         {

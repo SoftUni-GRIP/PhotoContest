@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using PhotoContest.Models.Contracts;
-using PhotoContest.Models.Enums;
-
-namespace PhotoContest.Models
+﻿namespace PhotoContest.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using PhotoContest.Models.Contracts;
+    using PhotoContest.Models.Enums;
+
     public class Contest : IEntity
     {
         private ICollection<User> winners;
         private ICollection<Picture> pictures;
         private ICollection<User> participants;
-
+        private ICollection<Reward> rewards;
         public Contest()
         {
             this.winners = new HashSet<User>();
             this.pictures = new HashSet<Picture>();
             this.participants = new HashSet<User>();
             this.CreatedOn = DateTime.Now;
+            this.rewards = new HashSet<Reward>();
         }
 
         public int Id { get; set; }
@@ -29,15 +30,15 @@ namespace PhotoContest.Models
 
         public DateTime CreatedOn { get; set; }
 
-        public string OwnerId { get; set; }
+        public string OwnerId{ get; set; }
 
         public virtual User Owner { get; set; }
 
         //Reward strategy
         public int WinnersCount { get; set; }
 
-        public decimal Price { get; set; }
-
+        //public decimal Price { get; set; }
+        
         public VotingStrategyType VotingStrategyType { get; set; }
 
         public ParticipationStrategyType ParticipationStrategyType { get; set; }
@@ -46,6 +47,8 @@ namespace PhotoContest.Models
         public DateTime? DeadlineDate { get; set; }
 
         public int? MaxNumberOfParticipants { get; set; }
+
+        public DateTime ClosedOn { get; set; }
 
         public virtual ICollection<Picture> Pictures
         {
@@ -82,6 +85,19 @@ namespace PhotoContest.Models
             set
             {
                 this.winners = value;
+            }
+        }
+
+        public virtual ICollection<Reward> Rewards
+        {
+            get
+            {
+                return this.rewards;
+            }
+
+            set
+            {
+                this.rewards = value;
             }
         }
     }
