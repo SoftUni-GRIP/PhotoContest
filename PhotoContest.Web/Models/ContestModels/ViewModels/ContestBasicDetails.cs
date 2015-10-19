@@ -3,7 +3,6 @@
     using AutoMapper;
     using Common.Enums;
     using Infrastructure.Mappings;
-    using Microsoft.AspNet.Identity;
     using PhotoContest.Models;
 
     public class ContestBasicDetails : IMapFrom<Contest>, IHaveCustomMappings

@@ -233,6 +233,9 @@
     <Compile Include="Infrastructure\MetaDataProvider\ExtensibleModelMetadataProvider.cs" />
     <Compile Include="Infrastructure\MetaDataProvider\Filters\LabelConventionFilter.cs" />
     <Compile Include="Infrastructure\MetaDataProvider\IModelMetadataFilter.cs" />
+    <Compile Include="Infrastructure\Utils\ObjectFactory.cs" />
+    <Compile Include="ModelBinders\EntityModelBinder.cs" />
+    <Compile Include="ModelBinders\EntityModelBinderProviderById.cs" />
     <Compile Include="Models\AccountModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\AccountModels\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\AccountModels\ForgotPasswordViewModel.cs" />
@@ -245,6 +248,8 @@
     <Compile Include="Models\AccountModels\VerifyCodeViewModel.cs" />
     <Compile Include="Models\ContestModels\InputModels\CreateContestInputModel.cs" />
     <Compile Include="Models\ContestModels\ViewModels\ContestBasicDetails.cs" />
+    <Compile Include="Models\ContestModels\ViewModels\ContestFullDetailsModel.cs" />
+    <Compile Include="Models\HomeControllerModels\HomePageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -313,6 +318,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Contest\Create.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ContestBasicDetails.cshtml" />
+    <Content Include="Views\Contest\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

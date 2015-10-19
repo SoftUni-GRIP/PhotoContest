@@ -7,6 +7,7 @@
     using System.Web.Optimization;
     using System.Web.Routing;
     using Infrastructure.Mappings;
+    using ModelBinders;
 
     public class MvcApplication : HttpApplication
     {
@@ -18,7 +19,7 @@
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             var autoMapperConfig = new AutoMapperConfig(new List<Assembly> {Assembly.GetExecutingAssembly()});
             autoMapperConfig.Execute();
-
+            ModelBinderProviders.BinderProviders.Add(new EntityModelBinderProviderById());
             // TODO: Select only Razor View Engine
         }
     }

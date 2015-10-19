@@ -6,6 +6,7 @@
     using Data.Contracts;
     using Infrastructure.CacheService;
     using Models.ContestModels.ViewModels;
+    using Models.HomeControllerModels;
 
     public class HomeController : BaseController
     {
@@ -20,22 +21,26 @@
 
         public ActionResult Index()
         {
-            //var contests = this.Data
-            //    .Contests
-            //    .All()
-            //    .Project()
-            //    .To<ContestBasicDetails>()
-            //    .ToList();
-
             var contests = this.cache.Contests
-                .AsQueryable()
-                .Project()
-                .To<ContestBasicDetails>()
-                .ToList();
+                    .AsQueryable()
+                    .Project()
+                    .To<ContestBasicDetails>()
+                    .ToList();
 
+            var model = new HomePageViewModel()
+            {
+                ContestBasicDetails = contests,
+                CurrentUserId = this.CurrentUser == null ? null : this.CurrentUser.Id,
+               // IsAdmin = this.IsAdmin()
+            };
 
-            return View(contests);
+            return View(model);
         }
+
+        //private bool IsAdmin()
+        //{
+        //   //return Roles.IsUserInRole("Administrator") || Roles.IsUserInRole("Owner");;
+        //}
 
         public ActionResult About()
         {

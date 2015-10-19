@@ -1,0 +1,76 @@
+﻿@model PhotoContest.Web.Models.ContestModels.ViewModels.ContestFullDetailsModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@*TODO Fix this view*@
+
+<div>
+    <h4>ContestFullDetailsModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeadlineDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeadlineDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxNumberOfParticipants)
+        </dt>
+
+        <dt>
+            @Html.LabelFor(model => model.VotingStrategyType)
+            @Html.DisplayFor(model => model.VotingStrategyType)
+        </dt>
+
+
+        <dt>
+            @Html.LabelFor(model => model.ParticipationStrategyType)
+            @Html.DisplayFor(model => model.ParticipationStrategyType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxNumberOfParticipants)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (Model.CanEdit)
+    {
+        @Html.ActionLink("Edit", "Edit",   new {id = Model.Id}) 
+        @Html.ActionLink("Delete", "Delete", new {id = Model.Id}) 
+    }
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

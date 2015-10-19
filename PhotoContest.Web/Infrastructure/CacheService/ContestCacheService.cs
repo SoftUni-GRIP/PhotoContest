@@ -19,7 +19,7 @@
         {
             get
             {
-                return Get<IList<Contest>>("Contests",
+                return Get<IList<Contest>>("ContestBasicDetails",
                     () => data.Contests
                 .All()
                 .ToList());
@@ -28,7 +28,7 @@
 
         public void RemoveContestsFromCache()
         {
-            HttpRuntime.Cache.Remove("Contests");
+            HttpRuntime.Cache.Remove("ContestBasicDetails");
         }
     }
 }

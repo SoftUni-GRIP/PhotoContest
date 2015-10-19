@@ -4,6 +4,7 @@
     using AutoMapper;
     using Data.Contracts;
     using Models.ContestModels.InputModels;
+    using Models.ContestModels.ViewModels;
     using PhotoContest.Models;
 
     [Authorize]
@@ -38,6 +39,35 @@
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Details(Contest contest)
+        {
+            var model = Mapper.Map<Contest, ContestFullDetailsModel>(contest);
+            model.CanEdit = this.CanEdit(contest);
+
+            return View(model);
+        }
+
+        private bool CanEdit(Contest contest)
+        {
+            if (CurrentUser == null)
+            {
+                return false;
+            }
+
+            //if (this.User.IsInRole("Administrator"))
+            //{
+            //    return true;
+            //}
+
+            if (contest.OwnerId == this.CurrentUser.Id)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -24,6 +24,7 @@ namespace PhotoContest.Data.Migrations
             {
                 this.SeedRoles(context);
                 this.SeedAmin(context);
+                this.SeedOwner(context);
             }
 
             if (!context.Contests.Any())
@@ -79,8 +80,10 @@ namespace PhotoContest.Data.Migrations
         {
             var store = new RoleStore<IdentityRole>(context);
             var manager = new RoleManager<IdentityRole>(store);
-            var role = new IdentityRole {Name = "Administrator"};
-            manager.Create(role);
+            var adminRole = new IdentityRole {Name = "Administrator"};
+            var foundeRole = new IdentityRole {Name = "Founder"};
+            manager.Create(foundeRole);
+            manager.Create(adminRole);
         }
 
         private void SeedAmin(PhotoContextDbContext context)
@@ -90,6 +93,15 @@ namespace PhotoContest.Data.Migrations
             var admin = new User {UserName = "admin", Email = "admin@abv.bg"};
             manager.Create(admin, "password");
             manager.AddToRole(admin.Id, "Administrator");
+        }
+
+        private void SeedOwner(PhotoContextDbContext context)
+        {
+            var store = new UserStore<User>(context);
+            var manager = new UserManager<User>(store);
+            var admin = new User {UserName = "owner", Email = "owner@myApp.bg"};
+            manager.Create(admin, "password");
+            manager.AddToRole(admin.Id, "Founder");
         }
     }
 }
