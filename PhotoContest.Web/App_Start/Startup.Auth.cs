@@ -8,6 +8,7 @@
     using Microsoft.Owin.Security.Cookies;
     using Owin;
     using PhotoContest.Models;
+    using Microsoft.Owin.Security.Google;
 
     public partial class Startup
     {
@@ -58,11 +59,11 @@
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "343792556532-8tprlbi1jl8nrpdjfud4cmojh4b1jmvf.apps.googleusercontent.com",
+                ClientSecret = "V5CqSRYAAgxBUrlAe2X2VeUw"
+            });
         }
     }
 }
