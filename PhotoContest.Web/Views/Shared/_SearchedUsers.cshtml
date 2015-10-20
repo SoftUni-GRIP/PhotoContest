@@ -10,10 +10,12 @@
 <script>
     $('.add-freind').click(function () {
         var userId = $(this).attr('id');
+
+
         $('#added-users').css("visibility", "visible");
         var username = $(this).attr('username');
         $('<input>').attr({
-           // type: 'hidden',
+            type: 'hidden',
             name: "UserIds",
             value: userId,
             id: 'input-for-binder' + userId
@@ -25,9 +27,11 @@
         var delBtn = $('<button>');
         delBtn.text('remove');
         delBtn.click(function () {
+            console.log($('#added-users').children().length);
             $(this).parent().remove();
             $('#input-for-binder' + userId).remove();
         });
+
         userDiv.append(delBtn);
 
         $('#added-users').append(userDiv);

@@ -62,7 +62,6 @@
             </div>
         </div>
 
-
         <div class="form-group">
             @Html.LabelFor(model => model.VotingStrategyType, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
@@ -70,11 +69,8 @@
             </div>
         </div>
 
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10" id="users-for-add">
-                @* <input name="UserIds" value="9a3901a1-5475-42da-a146-611a41af46a0" />*@
-                @*<input name="UserIds" value="9a3901a1-5475-42da-a146-611a41af46a0" />*@
                 <input type="submit" value="Create" class="btn btn-default"/>
             </div>
         </div>
@@ -114,7 +110,6 @@
     @Scripts.Render("~/bundles/jquery")
     <script>
         $('#user-search-input').keyup(function () {
-            console.log("siodjaisod");
             if ($('#user-search-input').val().length > 0) {
                 $('#users-search-form').submit();
             }
