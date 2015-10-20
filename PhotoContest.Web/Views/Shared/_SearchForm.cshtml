@@ -1,0 +1,17 @@
+﻿<p>KUR</p>
+
+@using (Ajax.BeginForm("SearchUsers", "Home", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "searched-users",
+    // TODO make function on succsess if needed
+
+}, new { id = "users-search-form" }))
+{
+    <input id="user-search-input" name="path" type="text" placeholder="Search for users" />
+    <input type="submit"/>
+}
+
+<div id="searched-users">
+    <p>searched</p>
+</div>

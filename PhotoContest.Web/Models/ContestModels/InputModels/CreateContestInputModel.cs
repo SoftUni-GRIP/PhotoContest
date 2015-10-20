@@ -1,6 +1,7 @@
 ﻿namespace PhotoContest.Web.Models.ContestModels.InputModels
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Common.Enums;
     using Infrastructure.Mappings;
@@ -27,6 +28,8 @@
         public ParticipationStrategyType ParticipationStrategyType { get; set; }
 
         public DateTime? DeadlineDate { get; set; }
+
+        public ICollection<string> UserIds { get; set; }
 
         public int? MaxNumberOfParticipants { get; set; }
     }

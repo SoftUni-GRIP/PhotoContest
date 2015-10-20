@@ -31,6 +31,14 @@
                 var contest = Mapper.Map<ContestInputModel, Contest>(model);
                 contest.OwnerId = CurrentUser.Id;
 
+                // TODO: Check for optimization
+
+                foreach (var id in model.UserIds)
+                {
+                    var user = this.Data.Users.Find(id);
+                    contest.Participants.Add(user);
+                }
+
                 Data.Contests.Add(contest);
                 Data.SaveChanges();
 

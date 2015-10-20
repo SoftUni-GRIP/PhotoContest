@@ -5,6 +5,7 @@
     using AutoMapper.QueryableExtensions;
     using Data.Contracts;
     using Infrastructure.CacheService;
+    using Models.AccountModels;
     using Models.ContestModels.ViewModels;
     using Models.HomeControllerModels;
 
@@ -54,6 +55,22 @@
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult RenderUsersSearchForm()
+        {
+            return this.PartialView("_SearchForm");
+        }
+
+        public ActionResult SearchUsers(string path)
+        {
+            var users = this.Data.Users
+                .All()
+                .Where(x => x.UserName.StartsWith(path))
+                .Project()
+                .To<UserSearchViewModel>()
+                .ToList();
+            return this.PartialView("_SearchedUsers", users);
         }
     }
 }

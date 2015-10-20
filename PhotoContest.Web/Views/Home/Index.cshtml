@@ -3,4 +3,38 @@
     ViewBag.Title = "Home Page";
 }
 
-@Html.DisplayFor(m => m.ContestBasicDetails)
+@*@Html.DisplayFor(m => m.ContestBasicDetails)*@
+
+
+@using (Ajax.BeginForm("SearchUsers", "Home", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "searched-users",
+    // TODO make function on succsess if needed 
+
+}, new { id = "users-search-form" }))
+{
+    <input id="user-search-input" name="path" type="text" placeholder="Search for users" />
+    @*<input type="submit"/>*@
+}
+
+<div id="searched-users">
+
+</div>
+
+@* script for searching on key up *@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        $('#user-search-input').keyup(function () {
+            if ($('#user-search-input').val().length > 0) {
+                $('#users-search-form').submit();
+            }
+
+            if ($('#user-search-input').val().length === 0) {
+                $('#searched-users').remove();
+            }
+        });
+    </script>
+}
