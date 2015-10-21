@@ -28,6 +28,16 @@
             get { return GetRepository<Contest>(); }
         }
 
+        public IRepository<Picture> Pictures
+        {
+            get { return GetRepository<Picture>(); }
+        }
+
+        public IRepository<Vote> Votes
+        {
+            get { return GetRepository<Vote>(); }
+        }
+
         public int SaveChanges()
         {
             return context.SaveChanges();

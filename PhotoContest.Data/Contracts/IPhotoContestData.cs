@@ -9,6 +9,10 @@
 
         IRepository<Contest> Contests { get; }
 
+        IRepository<Picture> Pictures { get; }
+
+        IRepository<Vote> Votes { get; } 
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

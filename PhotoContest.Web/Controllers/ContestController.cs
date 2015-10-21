@@ -3,6 +3,7 @@
     using System.Web.Mvc;
     using AutoMapper;
     using Data.Contracts;
+    using Models;
     using Models.ContestModels.InputModels;
     using Models.ContestModels.ViewModels;
     using PhotoContest.Models;
@@ -76,6 +77,17 @@
             }
 
             return false;
+        }
+
+        public ActionResult Vote(int id)
+        {
+            //todo validation
+
+            var model = new VoteInput()
+            {
+                PictureId =  id
+            };
+            return PartialView("_Vote", model);
         }
     }
 }
