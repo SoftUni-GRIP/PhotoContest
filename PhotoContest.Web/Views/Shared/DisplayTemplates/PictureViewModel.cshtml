@@ -1,0 +1,28 @@
+﻿@model PhotoContest.Web.Models.PictureViewModel
+
+<div id="vote-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="vote-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+        <img src="@Model.Url" alt="picture" />
+        <div class="caption">
+            <h3>@Html.LabelFor(m => m.Author) @Html.DisplayFor(m => m.Author)</h3>
+            <p>Posted on: @Model.CreatedOn</p>
+            <label for="picture-rating-@Model.Id">Rating: </label>
+            <span id="picture-rating-@Model.Id">@Model.Rating</span>
+            <div class="star-ratings-sprite"><span style="width: @Model.DisplayRating%" id="details-star-rating-@Model.Id" class=" rating"></span></div>
+            @Html.ActionLink("Vote", "Vote", "Contest", new { id = Model.Id }, new { @class = "btn btn-default", data_modal = "" })
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/votemodal.js"></script>
+

@@ -1,0 +1,33 @@
+﻿@model PhotoContest.Web.Models.VoteInput
+
+<h4>Vote</h4>
+
+@using (Ajax.BeginForm("Vote", "Contest", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "updateRating"
+}, new { id = "rating-form" }))
+{
+    @Html.AntiForgeryToken()
+    <span class="star-rating">
+        @Html.HiddenFor(x => x.PictureId)
+        <input class="hidden-star-rating" type="radio" name="rating" value="1"><i></i>
+        <input class="hidden-star-rating" type="radio" name="rating" value="2"><i></i>
+        <input class="hidden-star-rating" type="radio" name="rating" value="3"><i></i>
+        <input class="hidden-star-rating" type="radio" name="rating" value="4"><i></i>
+        <input class="hidden-star-rating" type="radio" name="rating" value="5"><i></i>
+    </span>
+}
+
+<script>
+    $('.hidden-star-rating').click(function() {
+        $('#rating-form').submit();
+        $('#vote-modal').modal('hide');
+    });
+
+    function updateRating(data) {
+        $('#picture-rating-@Model.PictureId').html(data.stars);
+        $('#details-star-rating-@Model.PictureId').width(data.stars*21.3);
+    }
+</script>
+

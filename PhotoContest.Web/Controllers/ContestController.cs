@@ -94,6 +94,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult Vote(VoteInput model)
         {
             //todo check is allowed to vote on this context with custom filter
