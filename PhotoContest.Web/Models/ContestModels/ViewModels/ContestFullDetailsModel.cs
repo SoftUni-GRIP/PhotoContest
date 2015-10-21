@@ -30,6 +30,7 @@
 
         public ICollection<PictureViewModel> Pictures { get; set; } 
 
+
         public void CreateMappings(AutoMapper.IConfiguration configuration)
         {
             configuration.CreateMap<Contest, ContestFullDetailsModel>()

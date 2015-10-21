@@ -9,7 +9,7 @@
         public int Id { get; set; }
 
         // TODO one vote per user, [1 - 10] unvote
-        [Range(0, 10)]
+        [Range(0, 5)]
         public int Rating { get; set; }
 
         public string UserId { get; set; }
