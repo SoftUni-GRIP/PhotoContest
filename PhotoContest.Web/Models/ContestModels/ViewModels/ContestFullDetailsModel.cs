@@ -1,6 +1,7 @@
 ﻿namespace PhotoContest.Web.Models.ContestModels.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using Common.Enums;
     using Infrastructure.Mappings;
     using PhotoContest.Models;
@@ -26,6 +27,8 @@
         public int? MaxNumberOfParticipants { get; set; }
 
         public bool CanEdit { get; set; }
+
+        public ICollection<PictureViewModel> Pictures { get; set; } 
 
         public void CreateMappings(AutoMapper.IConfiguration configuration)
         {

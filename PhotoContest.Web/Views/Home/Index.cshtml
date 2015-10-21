@@ -3,10 +3,10 @@
     ViewBag.Title = "Home Page";
 }
 
-@*@Html.DisplayFor(m => m.ContestBasicDetails)*@
+@Html.DisplayFor(m => m.ContestBasicDetails)
 
 
-@using (Ajax.BeginForm("SearchUsers", "Home", null, new AjaxOptions()
+@*@using (Ajax.BeginForm("SearchUsers", "Home", null, new AjaxOptions()
 {
     HttpMethod = "POST",
     UpdateTargetId = "searched-users",
@@ -15,8 +15,8 @@
 }, new { id = "users-search-form" }))
 {
     <input id="user-search-input" name="path" type="text" placeholder="Search for users" />
-    @*<input type="submit"/>*@
-}
+   
+}*@
 
 <div id="searched-users">
 
