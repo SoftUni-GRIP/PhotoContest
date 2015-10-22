@@ -8,9 +8,11 @@
 
     public class User : IdentityUser
     {
+        private ICollection<Reward> rewards; 
+
         public User()
         {
-            Rewards = new HashSet<Reward>();
+            this.rewards = new HashSet<Reward>();
         }
 
         public virtual ICollection<Contest> Contests { get; set; }
@@ -19,7 +21,18 @@
 
         public virtual ICollection<Vote> Votes { get; set; }
 
-        public virtual ICollection<Reward> Rewards { get; set; }
+        public virtual ICollection<Reward> Rewards
+        {
+            get
+            {
+                return this.rewards;
+            }
+
+            set
+            {
+                this.rewards = value;
+            }
+        }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

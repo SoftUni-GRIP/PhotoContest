@@ -14,11 +14,10 @@
 
         public Contest()
         {
-            winners = new HashSet<User>();
-            pictures = new HashSet<Picture>();
-            participants = new HashSet<User>();
-            CreatedOn = DateTime.Now;
-            rewards = new HashSet<Reward>();
+            this.winners = new HashSet<User>();
+            this.pictures = new HashSet<Picture>();
+            this.participants = new HashSet<User>();
+            this.rewards = new HashSet<Reward>();
         }
 
         public int Id { get; set; }
@@ -33,16 +32,14 @@
 
         public virtual User Owner { get; set; }
 
-        //Reward strategy
+        // Reward strategy
         public int WinnersCount { get; set; }
-
-        //public decimal Price { get; set; }
 
         public VotingStrategyType VotingStrategyType { get; set; }
 
         public ParticipationStrategyType ParticipationStrategyType { get; set; }
 
-        //Deadline strategy
+        // Deadline strategy
         public DateTime? DeadlineDate { get; set; }
 
         public int? MaxNumberOfParticipants { get; set; }
@@ -51,29 +48,54 @@
 
         public virtual ICollection<Picture> Pictures
         {
-            get { return pictures; }
+            get
+            {
+                return this.pictures;
+            }
 
-            set { pictures = value; }
+            set
+            {
+                this.pictures = value;
+            }
         }
 
         public virtual ICollection<User> Participants
         {
-            get { return participants; }
+            get
+            {
+                return this.participants;
+            }
 
-            set { participants = value; }
+            set
+            {
+                this.participants = value;
+            }
         }
 
         public virtual ICollection<User> Winners
         {
-            get { return winners; }
-            set { winners = value; }
+            get
+            {
+                return this.winners;
+            }
+
+            set
+            {
+                this.winners = value;
+            }
         }
 
         public virtual ICollection<Reward> Rewards
         {
-            get { return rewards; }
+            get
+            {
+                return this.rewards;
+            }
 
-            set { rewards = value; }
+            set
+            {
+                this.rewards = value;
+            }
         }
 
         public DateTime CreatedOn { get; set; }

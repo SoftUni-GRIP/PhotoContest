@@ -1,10 +1,9 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
     using System.Linq;
-    using System.Net.Sockets;
     using System.Web.Mvc;
-    using System.Web.Security;
     using AutoMapper;
+    using Common.Enums;
     using Data.Contracts;
     using Extensions;
     using Infrastructure.CacheService;
@@ -12,7 +11,6 @@
     using Models.ContestModels.InputModels;
     using Models.ContestModels.ViewModels;
     using PhotoContest.Models;
-
 
     [Authorize]
     public class ContestController : BaseController
@@ -125,6 +123,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         // TODO validation from admin or 
         public JsonResult Delete(int id)
         {
@@ -134,34 +133,19 @@
 
             if (contest != null)
             {
-
-                var pictures = contest.Pictures.ToList();
-
-                for (int i = 0; i < pictures.Count; i++)
-                {
-                    var picture = pictures[i];
-                    var votes = picture.Votes.ToList();
-                    for (int j = 0; j < votes.Count; j++)
-                    {
-                        var vote = votes[j];
-                        this.Data.Votes.Delete(vote);
-                    }
-
-                    this.Data.Pictures.Delete(picture);
-                }
-
-                this.Data.Contests.Delete(contest);
-
-                this.Data.SaveChanges();
-
-                this.cache.RemoveContestsFromCache();
+                this.DeleteContestData(contest);
                 this.AddNotification("Contest Deleted", NotificationType.SUCCESS);
-                return Json(new {Message = "home"});
+                return Json(new { Message = "home" });
             }
 
             this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
-            return Json(new{Message = "error"});
+            return Json(new { Message = "error" });
 
+        }
+
+        public ActionResult Edit(int id)
+        {
+            throw new System.NotImplementedException();
         }
 
         private bool CanEdit(Contest contest)
@@ -184,9 +168,76 @@
             return false;
         }
 
-        public ActionResult Edit(int id)
+        private void DeleteContestData(Contest contest)
         {
-            throw new System.NotImplementedException();
+            var pictures = contest.Pictures.ToList();
+
+            for (int i = 0; i < pictures.Count; i++)
+            {
+                var picture = pictures[i];
+                var votes = picture.Votes.ToList();
+                for (int j = 0; j < votes.Count; j++)
+                {
+                    var vote = votes[j];
+                    this.Data.Votes.Delete(vote);
+                }
+
+                this.Data.Pictures.Delete(picture);
+            }
+
+            this.Data.Contests.Delete(contest);
+
+            this.Data.SaveChanges();
+
+            this.cache.RemoveContestsFromCache();
+        }
+
+        [HttpGet]
+        public ActionResult DissmisViewInvoker(Contest contest)
+        {
+            // TODO Validation filter
+
+            if (contest != null)
+            {
+                var model = Mapper.Map<Contest, ContestBasicDetails>(contest);
+                return this.PartialView("_DismissContest", model);
+            }
+            else
+            {
+                //TODO create not found view
+                return this.HttpNotFound();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        // TODO fix this binding model
+        public JsonResult Dismiss(Contest contest)
+        {
+
+            //var contest = this.Data.Contests.Find(id);
+            // TODO add button for activation
+            // TODO add button for Finalize
+            // TODO add status on details, and update on success
+            // TODO validaton filter
+            // TODO valddation for null
+
+            contest.Status = ContestStatusType.Dismissed;
+            contest.Winners.Clear();
+            this.Data.SaveChanges();
+            return Json(new {Message = "Dissmissed"});
+        }
+
+        [HttpGet]
+        public ActionResult Finalize(Contest contest)
+        {
+            return this.PartialView();
+        }
+
+        [HttpGet]
+        public ActionResult CreatePrize()
+        {
+            return this.PartialView("_CreatePrize");
         }
     }
 }

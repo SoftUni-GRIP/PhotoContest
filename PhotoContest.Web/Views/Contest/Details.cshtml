@@ -1,4 +1,5 @@
-﻿@model PhotoContest.Web.Models.ContestModels.ViewModels.ContestFullDetailsModel
+﻿@using PhotoContest.Common.Enums
+@model PhotoContest.Web.Models.ContestModels.ViewModels.ContestFullDetailsModel
 @*TODO Fix this view*@
 <div id="delete-contest-modal" class="modal fade in">
     <div class="modal-dialog">
@@ -9,43 +10,53 @@
     </div>
 </div>
 
+<div id="dismiss-contest-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="dismiss-contest-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
 
 <div>
-
-
-
-
     <h4>Contest @Model.Title Details</h4>
-    <hr/>
+    <hr />
     @Html.LabelFor(m => m.Title)
     @Html.DisplayFor(m => m.Title)
-    <br/>
+    <br />
 
     @Html.LabelFor(m => m.Description)
     @Html.DisplayFor(m => m.Description)
-    <br/>
+    <br />
 
     @Html.LabelFor(m => m.Owner)
     @Html.DisplayFor(m => m.Owner)
-    <br/>
+    <br />
 
     @Html.LabelFor(m => m.DeadlineDate)
     @Html.DisplayFor(m => m.DeadlineDate)
-    <br/>
+    <br />
 
     @Html.LabelFor(m => m.MaxNumberOfParticipants)
     @Html.DisplayFor(m => m.MaxNumberOfParticipants)
 
-    <br/>
+    <br />
+
+    @Html.LabelFor(m => m.Status)
+    <span id="contest-status">
+        @Html.DisplayFor(m => m.Status)
+    </span>
+    <br />
 
     @Html.LabelFor(m => m.VotingStrategyType)
     @Html.DisplayFor(m => m.VotingStrategyType)
-    <br/>
+    <br />
 
     @Html.LabelFor(m => m.ParticipationStrategyType)
     @Html.DisplayFor(m => m.ParticipationStrategyType)
 
-    <br/>
+    <br />
     @if (Model.Pictures.Any())
     {
         <h3>Pictures</h3>
@@ -59,27 +70,31 @@
 <p>
     @if (Model.CanEdit)
     {
-        @Html.ActionLink("Edit", "Edit", "Contest", new {id = Model.Id}, new {@class = "btn btn-success"})
+        @Html.ActionLink("Edit", "Edit", "Contest", new { id = Model.Id }, new { @class = "btn btn-success" })
+
+        @Html.ActionLink("Delete", "Delete", "Contest", new { id = @Model.Id }, new { @class = "btn btn-danger", data_modal = "deleteContest" })
+
+        if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized)
+        {
+            @Html.ActionLink("Dismiss", "DissmisViewInvoker", "Contest", new { id = @Model.Id }, new { @class = "btn btn-danger", data_modal = "dismissContest", id="dismiss-bnt" })
+        }
 
 
-        @Html.ActionLink("Delete", "Delete", "Contest", new {id = @Model.Id}, new {@class = "btn btn-danger", data_modal = "deleteContest"})
+        if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized && Model.Status != ContestStatusType.Finalized)
+        {
+            @Html.ActionLink("Finalize", "Finalize", "Contest", new { id = @Model.Id }, new { @class = "btn btn-info", data_modal = "finalizeContest", id = "finalize-btn" })
+        }
     }
 
-    @Html.ActionLink("Back", "Index", "Home", null, new {@class = "btn btn-default"})
+    @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
 </p>
 
 
 @Scripts.Render("~/bundles/modals")
 
 <script>
-    //$("a[data-modal=deleteContest").on("click", function () {
-    //    $("#delete-contest-modal-content").load(this.href, function () {
-    //        $("#delete-contest-modal").modal({ keyboard: true }, "show");
-    //    });
-    //    return false;
-    //});
-
     invokeModalForm('delete-contest-modal-content', 'delete-contest-modal', "deleteContest");
+    invokeModalForm('dismiss-contest-modal-content', 'dismiss-contest-modal', "dismissContest");
     function removeContestFromUI(data) {
         console.log(data);
     }

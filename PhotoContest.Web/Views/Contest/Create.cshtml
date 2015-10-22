@@ -1,11 +1,21 @@
-﻿@using System.IdentityModel.Protocols.WSTrust
-@model PhotoContest.Web.Models.ContestModels.InputModels.ContestInputModel
+﻿@model PhotoContest.Web.Models.ContestModels.InputModels.ContestInputModel
 
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
+
+<div id="prizes-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="prizes-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @using (Html.BeginForm())
 {
@@ -69,15 +79,17 @@
             </div>
         </div>
 
+        @Html.ActionLink("Add Prize", "CreatePrize", "Contest", new { @class = "btn btn-default", data_modal = "createPrize" })
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10" id="users-for-add">
                 <input type="submit" value="Create" class="btn btn-default"/>
             </div>
         </div>
     </div>
-
-    
    
+    
+    
 }
 
 @using (Ajax.BeginForm("SearchUsers", "Home", null, new AjaxOptions()
@@ -102,11 +114,14 @@
 
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Home")
 </div>
 
-@section Scripts {
+@Scripts.Render("~/bundles/modals")
+
     <script>
+        invokeModalForm('prizes-modal-content', 'prizes-modal', "createPrize");
+
         $('#user-search-input').keyup(function () {
             if ($('#user-search-input').val().length > 0) {
                 $('#users-search-form').submit();
@@ -125,6 +140,7 @@
                 $('#user-search-input').css("visibility", "hidden");
             }
         });
-        
+
     </script>
-}
+
+

@@ -10,7 +10,7 @@
 
         public Picture()
         {
-            votes = new HashSet<Vote>();
+            this.votes = new HashSet<Vote>();
         }
 
         public int Id { get; set; }
@@ -27,9 +27,9 @@
 
         public virtual ICollection<Vote> Votes
         {
-            get { return votes; }
+            get { return this.votes; }
 
-            set { votes = value; }
+            set { this.votes = value; }
         }
 
         public DateTime CreatedOn { get; set; }

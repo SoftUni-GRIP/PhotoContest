@@ -36,8 +36,8 @@
         OnSuccess = "redirectToPage"
     }))
     {
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(x => x.Id)
-        ;
         <input type="submit" class="btn btn-danger" value="Delete" />
     }
 

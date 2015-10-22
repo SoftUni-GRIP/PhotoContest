@@ -43,7 +43,7 @@ namespace PhotoContest.Data.Migrations
                     OwnerId = context.Users.First().Id,
                     CreatedOn = DateTime.Now.AddDays(i),
                     Title = "Contest #" + i,
-                    Description = "Desctiption for contest#" + i,
+                    Description = "Desctiption for contest #" + i,
                     MaxNumberOfParticipants = 10,
                     DeadlineDate = DateTime.Now.AddDays(1 + i),
                     Status = ContestStatusType.Active,
