@@ -17,7 +17,6 @@
 
         public string Author { get; set; }
 
-
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Contest, ContestBasicDetails>()

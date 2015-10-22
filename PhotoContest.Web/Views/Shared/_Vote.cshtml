@@ -22,7 +22,7 @@
 <script>
     $('.hidden-star-rating').click(function() {
         $('#rating-form').submit();
-        $('#vote-modal').modal('hide');
+        closeModalFrom('vote-modal');
     });
 
     function updateRating(data) {

@@ -1,38 +1,51 @@
 ﻿@model PhotoContest.Web.Models.ContestModels.ViewModels.ContestFullDetailsModel
 @*TODO Fix this view*@
+<div id="delete-contest-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="delete-contest-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div>
+
+
+
+
     <h4>Contest @Model.Title Details</h4>
-    <hr />
+    <hr/>
     @Html.LabelFor(m => m.Title)
     @Html.DisplayFor(m => m.Title)
-    <br />
+    <br/>
 
     @Html.LabelFor(m => m.Description)
     @Html.DisplayFor(m => m.Description)
-    <br />
+    <br/>
 
     @Html.LabelFor(m => m.Owner)
     @Html.DisplayFor(m => m.Owner)
-    <br />
+    <br/>
 
     @Html.LabelFor(m => m.DeadlineDate)
     @Html.DisplayFor(m => m.DeadlineDate)
-    <br />
+    <br/>
 
     @Html.LabelFor(m => m.MaxNumberOfParticipants)
     @Html.DisplayFor(m => m.MaxNumberOfParticipants)
 
-    <br />
+    <br/>
 
     @Html.LabelFor(m => m.VotingStrategyType)
     @Html.DisplayFor(m => m.VotingStrategyType)
-    <br />
+    <br/>
 
     @Html.LabelFor(m => m.ParticipationStrategyType)
     @Html.DisplayFor(m => m.ParticipationStrategyType)
 
-    <br />
+    <br/>
     @if (Model.Pictures.Any())
     {
         <h3>Pictures</h3>
@@ -46,10 +59,28 @@
 <p>
     @if (Model.CanEdit)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
-        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        @Html.ActionLink("Edit", "Edit", "Contest", new {id = Model.Id}, new {@class = "btn btn-success"})
+
+
+        @Html.ActionLink("Delete", "Delete", "Contest", new {id = @Model.Id}, new {@class = "btn btn-danger", data_modal = "deleteContest"})
     }
 
-    @Html.ActionLink("Back", "Index", "Home")
+    @Html.ActionLink("Back", "Index", "Home", null, new {@class = "btn btn-default"})
 </p>
 
+
+@Scripts.Render("~/bundles/modals")
+
+<script>
+    //$("a[data-modal=deleteContest").on("click", function () {
+    //    $("#delete-contest-modal-content").load(this.href, function () {
+    //        $("#delete-contest-modal").modal({ keyboard: true }, "show");
+    //    });
+    //    return false;
+    //});
+
+    invokeModalForm('delete-contest-modal-content', 'delete-contest-modal', "deleteContest");
+    function removeContestFromUI(data) {
+        console.log(data);
+    }
+</script>

@@ -1,5 +1,5 @@
 ﻿@model PhotoContest.Web.Models.ContestModels.ViewModels.ContestBasicDetails
-          
+
 
 <div class="contest-low-details-container">
     <div class="col-xs-6 col-md-3">
@@ -7,7 +7,7 @@
         <h3>@Model.Title</h3>
         <h5>@Model.Description</h5>
         <p>@Html.LabelFor(m => m.Author): @Model.Author</p>
-        @Html.ActionLink("Details", "Details", "Contest", new {id = Model.Id}, new {@class = "btn btn-default"})
+        @Html.ActionLink("Details", "Details", "Contest", new { id = Model.Id }, new { @class = "btn btn-default" })
         <hr/>
     </div>
 </div>

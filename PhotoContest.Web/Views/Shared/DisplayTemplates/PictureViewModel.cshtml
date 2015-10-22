@@ -18,11 +18,14 @@
             <label for="picture-rating-@Model.Id">Rating: </label>
             <span id="picture-rating-@Model.Id">@Model.Rating</span>
             <div class="star-ratings-sprite"><span style="width: @Model.DisplayRating%" id="details-star-rating-@Model.Id" class=" rating"></span></div>
-            @Html.ActionLink("Vote", "Vote", "Contest", new { id = Model.Id }, new { @class = "btn btn-default", data_modal = "" })
+            @Html.ActionLink("Vote", "Vote", "Contest", new { id = Model.Id }, new { @class = "btn btn-default", data_modal = "vote" })
         </div>
     </div>
 </div>
 
+@Scripts.Render("~/bundles/modals")
 
-<script src="~/Scripts/votemodal.js"></script>
+<script>
+    invokeModalForm('vote-modal-content', 'vote-modal', "vote");
+</script>
 

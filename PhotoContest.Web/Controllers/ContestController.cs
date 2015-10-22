@@ -1,21 +1,28 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
     using System.Linq;
+    using System.Net.Sockets;
     using System.Web.Mvc;
+    using System.Web.Security;
     using AutoMapper;
     using Data.Contracts;
     using Extensions;
+    using Infrastructure.CacheService;
     using Models;
     using Models.ContestModels.InputModels;
     using Models.ContestModels.ViewModels;
     using PhotoContest.Models;
 
+
     [Authorize]
     public class ContestController : BaseController
     {
-        public ContestController(IPhotoContestData data)
+
+        private ICacheService cache;
+        public ContestController(IPhotoContestData data, ICacheService cache)
             : base(data)
         {
+            this.cache = cache;
         }
 
         [HttpGet]
@@ -57,28 +64,7 @@
         {
             var model = Mapper.Map<Contest, ContestFullDetailsModel>(contest);
             model.CanEdit = this.CanEdit(contest);
-
             return View(model);
-        }
-
-        private bool CanEdit(Contest contest)
-        {
-            if (CurrentUser == null)
-            {
-                return false;
-            }
-
-            //if (this.User.IsInRole("Administrator"))
-            //{
-            //    return true;
-            //}
-
-            if (contest.OwnerId == this.CurrentUser.Id)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         [HttpGet]
@@ -121,14 +107,86 @@
                 }
 
                 this.Data.SaveChanges();
-                this.AddNotification("Vote successfull", NotificationType.SUCCESS);
+                //this.AddNotification("Vote successfull", NotificationType.SUCCESS);
                 var newRating = picture.Votes.Select(x => x.Rating).Average();
 
                 return this.Json(new { stars = newRating });
             }
-            
+
             this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
             return this.Json("");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(Contest contest)
+        {
+            var model = Mapper.Map<Contest, ContestBasicDetails>(contest);
+            return this.PartialView("_Delete", model);
+        }
+
+        [HttpPost]
+        // TODO validation from admin or 
+        public JsonResult Delete(int id)
+        {
+            //validaton attribute 
+
+            var contest = this.Data.Contests.Find(id);
+
+            if (contest != null)
+            {
+
+                var pictures = contest.Pictures.ToList();
+
+                for (int i = 0; i < pictures.Count; i++)
+                {
+                    var picture = pictures[i];
+                    var votes = picture.Votes.ToList();
+                    for (int j = 0; j < votes.Count; j++)
+                    {
+                        var vote = votes[j];
+                        this.Data.Votes.Delete(vote);
+                    }
+
+                    this.Data.Pictures.Delete(picture);
+                }
+
+                this.Data.Contests.Delete(contest);
+
+                this.Data.SaveChanges();
+
+                this.cache.RemoveContestsFromCache();
+                this.AddNotification("Contest Deleted", NotificationType.SUCCESS);
+                return Json(new {Message = "home"});
+            }
+
+            this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
+            return Json(new{Message = "error"});
+
+        }
+
+        private bool CanEdit(Contest contest)
+        {
+            if (CurrentUser == null)
+            {
+                return false;
+            }
+
+            if (this.User.IsInRole("Administrator"))
+            {
+                return true;
+            }
+
+            if (contest.OwnerId == this.CurrentUser.Id)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public ActionResult Edit(int id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

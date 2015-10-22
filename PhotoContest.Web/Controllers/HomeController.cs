@@ -38,11 +38,6 @@
             return View(model);
         }
 
-        //private bool IsAdmin()
-        //{
-        //   //return Roles.IsUserInRole("Administrator") || Roles.IsUserInRole("Owner");;
-        //}
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
