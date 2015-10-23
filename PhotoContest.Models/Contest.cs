@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using Common.Enums;
     using Contracts;
 
@@ -33,6 +34,7 @@
         public virtual User Owner { get; set; }
 
         // Reward strategy
+        [Range(0, 5)]
         public int WinnersCount { get; set; }
 
         public VotingStrategyType VotingStrategyType { get; set; }

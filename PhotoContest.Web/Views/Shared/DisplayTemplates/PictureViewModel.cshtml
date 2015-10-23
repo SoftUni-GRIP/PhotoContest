@@ -17,6 +17,7 @@
             <p>Posted on: @Model.CreatedOn</p>
             <label for="picture-rating-@Model.Id">Rating: </label>
             <span id="picture-rating-@Model.Id">@Model.Rating</span>
+            <p>@Model.DisplayRating</p>
             <div class="star-ratings-sprite"><span style="width: @Model.DisplayRating%" id="details-star-rating-@Model.Id" class=" rating"></span></div>
             @Html.ActionLink("Vote", "Vote", "Contest", new { id = Model.Id }, new { @class = "btn btn-default", data_modal = "vote" })
         </div>

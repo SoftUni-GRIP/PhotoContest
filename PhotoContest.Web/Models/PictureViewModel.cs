@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Security.Cryptography.X509Certificates;
     using AutoMapper;
     using ContestModels.ViewModels;
     using Infrastructure.Mappings;
@@ -26,11 +27,26 @@
             configuration.CreateMap<Picture, PictureViewModel>()
                 .ForMember(x => x.Author, setup => setup.MapFrom(m => m.User.UserName));
 
-            configuration.CreateMap<Picture, PictureViewModel>()
-               .ForMember(x => x.Rating, setup => setup.MapFrom(m => m.Votes.Select(x => x.Rating).Average()));
+            //configuration.CreateMap<Picture, PictureViewModel>()
+            //   .ForMember(x => x.Rating, setup => 
+            //       setup.MapFrom(m => 
+            //           m.Votes.Select(x => x.Rating).Average()));
+
+            //configuration.CreateMap<Picture, PictureViewModel>()
+            // .ForMember(x => x.DisplayRating, setup => setup.MapFrom(m => m.Votes.Select(x => x.Rating).Average() * 19.8));
+
 
             configuration.CreateMap<Picture, PictureViewModel>()
-         .ForMember(x => x.DisplayRating, setup => setup.MapFrom(m => m.Votes.Select(x => x.Rating).Average() * 19.8));
+               .ForMember(x => x.Rating, setup =>
+                   setup.MapFrom(m =>
+                       !m.Votes.Any() ? 0 : m.Votes.Select(x => x.Rating).Average()
+                ));
+
+            configuration.CreateMap<Picture, PictureViewModel>()
+             .ForMember(x => x.DisplayRating, setup =>
+                     setup.MapFrom(m =>
+                       !m.Votes.Any() ? 0 : m.Votes.Select(x => x.Rating).Average() * 19.8
+                 ));
         }
     }
 }

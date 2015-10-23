@@ -6,6 +6,7 @@
 {
     HttpMethod = "POST",
     OnSuccess = "updateRating"
+    
 }, new { id = "rating-form" }))
 {
     @Html.AntiForgeryToken()
@@ -20,14 +21,13 @@
 }
 
 <script>
-    $('.hidden-star-rating').click(function() {
+    $('.hidden-star-rating').click(function () {
         $('#rating-form').submit();
         closeModalFrom('vote-modal');
     });
 
     function updateRating(data) {
         $('#picture-rating-@Model.PictureId').html(data.stars);
-        $('#details-star-rating-@Model.PictureId').width(data.stars*21.3);
+        $('#details-star-rating-@Model.PictureId').width(data.stars * 21.3);
     }
 </script>
-

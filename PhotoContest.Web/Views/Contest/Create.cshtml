@@ -1,95 +1,127 @@
-﻿@model PhotoContest.Web.Models.ContestModels.InputModels.ContestInputModel
+﻿@using System.IdentityModel.Tokens
+@using System.Security.AccessControl
+@model PhotoContest.Web.Models.ContestModels.InputModels.ContestInputModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Contest";
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 
 <div id="prizes-modal" class="modal fade in">
     <div class="modal-dialog">
         <div class="modal-content">
             <div id="prizes-modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Prize</h4>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input id="price" type="number" value="" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <input type="submit" value="Add" id="add-price" class="btn btn-default">
+                    </div>
+                </div>
+                <script>
+                    $('#add-price').click(function () {
+                        var price = $('#price').val();
+                        $('<input>').attr({
+                            type: 'hidden',
+                            name: "Prizes",
+                            value: price,
+                            id: 'price-input-binder' + price
+                        }).appendTo('#input-binder-create');
+
+                        var prizesDiv = $('<div>');
+                        prizesDiv.append('<p>' + price + '</p>');
+                        var delBtn = $('<button>');
+                        delBtn.text('remove');
+                        delBtn.click(function () {
+                            $(this).parent().remove();
+                            $('#price-input-binder' + price).remove();
+                        });
+
+                        prizesDiv.append(delBtn);
+
+                        $('#prizes').append(prizesDiv);
+
+                        closeModalFrom('prizes-modal');
+                    })
+
+                </script>
             </div>
         </div>
     </div>
 </div>
 
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
-        <h4>CreateContestViewModel</h4>
-        <hr/>
-        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.WinnersCount, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.WinnersCount, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WinnersCount, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.WinnersCount, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.WinnersCount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WinnersCount, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DeadlineDate, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.DeadlineDate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DeadlineDate, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.DeadlineDate, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.DeadlineDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DeadlineDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MaxNumberOfParticipants, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.MaxNumberOfParticipants, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxNumberOfParticipants, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.MaxNumberOfParticipants, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.MaxNumberOfParticipants, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaxNumberOfParticipants, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ParticipationStrategyType, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.ParticipationStrategyType, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.ParticipationStrategyType, new {id = "participation-strategy"})
+                @Html.EnumDropDownListFor(model => model.ParticipationStrategyType, new { id = "participation-strategy" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.VotingStrategyType, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.VotingStrategyType, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EnumDropDownListFor(model => model.VotingStrategyType)
             </div>
         </div>
 
+        @Html.ValidationMessageFor(model => model.Prizes, "", new { @class = "text-danger" })
+
         @Html.ActionLink("Add Prize", "CreatePrize", "Contest", new { @class = "btn btn-default", data_modal = "createPrize" })
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10" id="users-for-add">
-                <input type="submit" value="Create" class="btn btn-default"/>
+            <div class="col-md-offset-2 col-md-10" id="input-binder-create">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
-   
-    
-    
 }
 
 @using (Ajax.BeginForm("SearchUsers", "Home", null, new AjaxOptions()
@@ -107,6 +139,9 @@
     <p>searched</p>
 </div>
 
+<div id="prizes">
+    <p>prizes</p>
+</div>
 
 <div id="added-users" style="visibility: hidden">
     <p>Added users</p>
@@ -117,11 +152,17 @@
     @Html.ActionLink("Back to List", "Index", "Home")
 </div>
 
-@Scripts.Render("~/bundles/modals")
+@section Styles{
+    @Styles.Render("~/Content/bootstrap-datetimepicker");
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/modals")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+    
 
     <script>
         invokeModalForm('prizes-modal-content', 'prizes-modal', "createPrize");
-
+        datetimePickerInvoker('DeadlineDate');
         $('#user-search-input').keyup(function () {
             if ($('#user-search-input').val().length > 0) {
                 $('#users-search-form').submit();
@@ -142,5 +183,6 @@
         });
 
     </script>
+}
 
 

@@ -11,7 +11,7 @@
     {
         protected BaseController(IPhotoContestData data)
         {
-            Data = data;
+            this.Data = data;
         }
 
         protected IPhotoContestData Data { get; private set; }

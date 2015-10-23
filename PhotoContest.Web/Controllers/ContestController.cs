@@ -1,5 +1,7 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
+    using System;
+    using System.Data.Entity;
     using System.Linq;
     using System.Web.Mvc;
     using AutoMapper;
@@ -39,17 +41,28 @@
                 var contest = Mapper.Map<ContestInputModel, Contest>(model);
                 contest.OwnerId = CurrentUser.Id;
 
-                // TODO: Check for optimization
-
-                foreach (var id in model.UserIds)
+                if (model.UserIds.Count !=0)
                 {
-                    var user = this.Data.Users.Find(id);
-                    contest.Participants.Add(user);
+                    foreach (var id in model.UserIds)
+                    {
+                        var user = this.Data.Users.Find(id);
+                        contest.Participants.Add(user);
+                    }
                 }
 
-                Data.Contests.Add(contest);
-                Data.SaveChanges();
+                foreach (var prize in model.Prizes)
+                {
+                    var reward = new Reward()
+                    {
+                        RewardPrice = prize
+                    };
+                    contest.Rewards.Add(reward);
+                }
 
+                this.Data.Contests.Add(contest);
+               
+                this.Data.SaveChanges();
+                this.cache.RemoveContestsFromCache();
                 //TODO: Remove magic strings
                 return RedirectToAction("Index", "Home");
             }
@@ -58,11 +71,26 @@
         }
 
         [HttpGet]
-        public ActionResult Details(Contest contest)
+        // this is not working with binding model. Picutes has to be included
+        public ActionResult Details(int id)
         {
-            var model = Mapper.Map<Contest, ContestFullDetailsModel>(contest);
-            model.CanEdit = this.CanEdit(contest);
-            return View(model);
+            var contest = this.Data.Contests
+                .All()
+                .Where(x => x.Id == id)
+                .Include("Pictures").FirstOrDefault();
+
+            if (contest != null)
+            {
+                var model = Mapper.Map<Contest, ContestFullDetailsModel>(contest);
+                model.CanEdit = this.CanEdit(contest);
+                return View(model);
+            }
+            else
+            {
+                //return view not fond
+                throw new NotImplementedException();
+            }
+
         }
 
         [HttpGet]
@@ -74,7 +102,7 @@
             {
                 PictureId = id
             };
-            return PartialView("_Vote", model);
+            return this.PartialView("_Vote", model);
         }
 
         [HttpPost]
@@ -102,9 +130,12 @@
                             UserId = this.CurrentUser.Id
                         });
                     }
+
+                    this.Data.SaveChanges();
+                    this.cache.RemoveContestsFromCache();
                 }
 
-                this.Data.SaveChanges();
+
                 //this.AddNotification("Vote successfull", NotificationType.SUCCESS);
                 var newRating = picture.Votes.Select(x => x.Rating).Average();
 
@@ -139,7 +170,7 @@
             }
 
             this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
-            return Json(new { Message = "error" });
+            return this.Json(new { Message = "error" });
 
         }
 
@@ -150,7 +181,7 @@
 
         private bool CanEdit(Contest contest)
         {
-            if (CurrentUser == null)
+            if (this.CurrentUser == null)
             {
                 return false;
             }
@@ -225,7 +256,7 @@
             contest.Status = ContestStatusType.Dismissed;
             contest.Winners.Clear();
             this.Data.SaveChanges();
-            return Json(new {Message = "Dissmissed"});
+            return this.Json(new { Message = "Dissmissed" });
         }
 
         [HttpGet]

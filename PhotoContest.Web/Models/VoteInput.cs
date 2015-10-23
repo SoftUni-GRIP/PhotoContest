@@ -10,7 +10,5 @@
         public int Rating { get; set; }
 
         public int PictureId { get; set; }
-
-        
     }
 }

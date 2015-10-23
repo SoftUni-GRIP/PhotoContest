@@ -5,10 +5,17 @@
     using System.ComponentModel.DataAnnotations;
     using Common.Enums;
     using Infrastructure.Mappings;
+    using Infrastructure.ValidationAttrbutes;
     using PhotoContest.Models;
 
     public class ContestInputModel : IMapTo<Contest>
     {
+        public ContestInputModel()
+        {
+            this.UserIds = new List<string>();
+            this.Prizes = new List<decimal>();
+        }
+
         [Required]
         public string Title { get; set; }
 
@@ -30,6 +37,10 @@
         public DateTime? DeadlineDate { get; set; }
 
         public ICollection<string> UserIds { get; set; }
+
+        [Required]
+        [EnsureOneElement(ErrorMessage = "You have to create at least one prize")]
+        public ICollection<decimal> Prizes { get; set; } 
 
         public int? MaxNumberOfParticipants { get; set; }
     }
