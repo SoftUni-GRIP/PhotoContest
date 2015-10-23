@@ -1,0 +1,40 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <div class="modal-body">
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input placeholder="Price..." id="price" type="number" value="" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="Add" id="add-price" class="btn btn-default" />
+    </div>
+</div>
+
+<script>
+    $('#add-price').click(function () {
+        var price = $('#price').val();
+        $('<input>').attr({
+            type: 'hidden',
+            name: "Prizes",
+            value: price,
+            id: 'price-input-binder' + price
+        }).appendTo('#input-binder-create');
+
+        var prizesDiv = $('<div>');
+        prizesDiv.append('<p>' + price + '</p>');
+        var delBtn = $('<button>');
+        delBtn.text('remove');
+        delBtn.click(function () {
+            $(this).parent().remove();
+            $('#price-input-binder' + price).remove();
+        });
+
+        prizesDiv.append(delBtn);
+
+        $('#prizes').append(prizesDiv);
+
+        closeModalFrom('prizes-modal');
+    })
+
+</script>
