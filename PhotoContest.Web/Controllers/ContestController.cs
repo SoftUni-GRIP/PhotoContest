@@ -153,6 +153,14 @@
             return this.PartialView("_Delete", model);
         }
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var contest = this.Data.Contests.Find(id);
+            var model = Mapper.Map<Contest, ContestBasicDetails>(contest);
+            return this.PartialView("_Edit", model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         // TODO validation from admin or 
@@ -174,9 +182,21 @@
 
         }
 
-        public ActionResult Edit(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Edit(ContestBasicDetails model)
         {
-            throw new System.NotImplementedException();
+            var contest = this.Data.Contests.Find(model.Id);
+
+            if (contest != null)
+            {
+                this.EditContestData(contest, model);
+                this.AddNotification("Contest Edited", NotificationType.SUCCESS);
+                return Json(new { Message = "home" }, JsonRequestBehavior.AllowGet);
+            }
+
+            this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
+            return this.Json(new { Message = "error"},JsonRequestBehavior.AllowGet);
         }
 
         private bool CanEdit(Contest contest)
@@ -217,6 +237,18 @@
             }
 
             this.Data.Contests.Delete(contest);
+
+            this.Data.SaveChanges();
+
+            this.cache.RemoveContestsFromCache();
+        }
+
+        private void EditContestData(Contest contest,ContestBasicDetails model)
+        {
+            contest.Title = model.Title;
+            contest.Description = model.Description;
+
+            this.Data.Contests.Update(contest);
 
             this.Data.SaveChanges();
 

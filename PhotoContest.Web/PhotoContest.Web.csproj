@@ -355,6 +355,7 @@
     <Content Include="Views\Contest\_Delete.cshtml" />
     <Content Include="Views\Contest\_DismissContest.cshtml" />
     <Content Include="Views\Contest\_CreatePrize.cshtml" />
+    <Content Include="Views\Contest\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

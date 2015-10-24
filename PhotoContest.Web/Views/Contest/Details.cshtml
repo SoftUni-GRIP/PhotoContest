@@ -19,6 +19,15 @@
     </div>
 </div>
 
+<div id="edit-contest-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="edit-contest-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
     <h4>Contest @Model.Title Details</h4>
     <hr />
@@ -67,10 +76,10 @@
 
 
 </div>
-<p>
+<div class="btn-group-sm" role="group">
     @if (Model.CanEdit)
     {
-        @Html.ActionLink("Edit", "Edit", "Contest", new { id = Model.Id }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Edit", "Edit", "Contest", new { id = @Model.Id }, new { @class = "btn btn-success", data_modal = "editContest" })
 
         @Html.ActionLink("Delete", "Delete", "Contest", new { id = @Model.Id }, new { @class = "btn btn-danger", data_modal = "deleteContest" })
 
@@ -87,12 +96,13 @@
     }
 
     @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
-</p>
+</div>
 
 
 @Scripts.Render("~/bundles/modals")
 
 <script>
+    invokeModalForm('edit-contest-modal-content', 'edit-contest-modal', "editContest");
     invokeModalForm('delete-contest-modal-content', 'delete-contest-modal', "deleteContest");
     invokeModalForm('dismiss-contest-modal-content', 'dismiss-contest-modal', "dismissContest");
     function removeContestFromUI(data) {
