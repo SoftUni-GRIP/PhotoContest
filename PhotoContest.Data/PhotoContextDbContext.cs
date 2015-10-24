@@ -27,10 +27,20 @@
         {
             modelBuilder.Properties<DateTime>()
                 .Configure(c => c.HasColumnType("datetime2"));
-            modelBuilder.Entity<User>().HasMany(x => x.Contests)
-                .WithMany(x => x.Winners);
-            modelBuilder.Entity<User>().HasMany(x => x.Contests)
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Contests)
                 .WithMany(x => x.Participants);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.WonContests)
+                .WithMany(x => x.Winners)
+                .Map(m =>
+                {
+                    m.ToTable("UsersWonContests");
+                    m.MapLeftKey("User_Id");
+                    m.MapRightKey("Contest_Id");
+                });
 
             base.OnModelCreating(modelBuilder);
         }

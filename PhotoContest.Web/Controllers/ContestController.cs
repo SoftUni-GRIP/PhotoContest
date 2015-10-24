@@ -265,12 +265,14 @@
             {
                 var model = Mapper.Map<Contest, ContestClosedViewModel>(contest);
                 var winners = contest.Pictures
-                    .OrderByDescending(p => p.Votes)
-                    .Select(p => p.User)
-                    .Take(contest.WinnersCount);
+                    .OrderByDescending(p => p.Votes.Count)
+                    .Select(p => p.User.UserName)
+                    .Take(contest.WinnersCount)
+                    .ToList();
+
                 foreach (var winner in winners)
                 {
-                    contest.Winners.Add(winner);
+                    model.Winners.Add(winner);
                 }
 
                 return this.PartialView("_FinalizeContest", model);
@@ -284,18 +286,21 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Finalize(Contest contest)
+        public JsonResult Finalize(int id)
         {
-            //var contest = this.Data.Contests.Find(id);
+            var contest = this.Data.Contests.Find(id);
             contest.ClosedOn = DateTime.Now;
+            contest.Status = ContestStatusType.Finalized;
             var winners = contest.Pictures
-                .OrderByDescending(p => p.Votes)
+                .OrderByDescending(p => p.Votes.Count)
                 .Select(p => p.User)
-                .Take(contest.WinnersCount);
+                .Take(contest.WinnersCount)
+                .ToList();
 
             foreach (var winner in winners)
             {
                 contest.Winners.Add(winner);
+                this.Data.SaveChanges();
             }
 
             this.Data.SaveChanges();

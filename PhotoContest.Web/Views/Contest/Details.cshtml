@@ -89,7 +89,7 @@
         }
 
 
-        if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized && Model.Status != ContestStatusType.Finalized)
+        if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized)
         {
             @Html.ActionLink("Finalize", "FinalizeViewInvoker", "Contest", new { id = @Model.Id }, new { @class = "btn btn-info", data_modal = "finalizeContest", id = "finalize-btn" })
         }

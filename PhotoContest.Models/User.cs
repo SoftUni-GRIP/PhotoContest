@@ -8,11 +8,13 @@
 
     public class User : IdentityUser
     {
-        private ICollection<Reward> rewards; 
+        private ICollection<Reward> rewards;
+        private ICollection<Contest> wonContests; 
 
         public User()
         {
             this.rewards = new HashSet<Reward>();
+            this.wonContests = new HashSet<Contest>();
         }
 
         public virtual ICollection<Contest> Contests { get; set; }
@@ -31,6 +33,19 @@
             set
             {
                 this.rewards = value;
+            }
+        }
+
+        public virtual ICollection<Contest> WonContests
+        {
+            get
+            {
+                return this.wonContests;
+            }
+
+            set
+            {
+                this.wonContests = value;
             }
         }
 
