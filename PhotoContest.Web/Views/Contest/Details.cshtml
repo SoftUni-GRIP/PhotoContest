@@ -19,6 +19,15 @@
     </div>
 </div>
 
+<div id="finalize-contest-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="finalize-contest-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
     <h4>Contest @Model.Title Details</h4>
     <hr />
@@ -82,7 +91,7 @@
 
         if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized && Model.Status != ContestStatusType.Finalized)
         {
-            @Html.ActionLink("Finalize", "Finalize", "Contest", new { id = @Model.Id }, new { @class = "btn btn-info", data_modal = "finalizeContest", id = "finalize-btn" })
+            @Html.ActionLink("Finalize", "FinalizeViewInvoker", "Contest", new { id = @Model.Id }, new { @class = "btn btn-info", data_modal = "finalizeContest", id = "finalize-btn" })
         }
     }
 
@@ -95,6 +104,8 @@
 <script>
     invokeModalForm('delete-contest-modal-content', 'delete-contest-modal', "deleteContest");
     invokeModalForm('dismiss-contest-modal-content', 'dismiss-contest-modal', "dismissContest");
+    invokeModalForm('finalize-contest-modal-content', 'finalize-contest-modal', "finalizeContest");
+
     function removeContestFromUI(data) {
         console.log(data);
     }

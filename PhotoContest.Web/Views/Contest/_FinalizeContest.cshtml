@@ -1,0 +1,58 @@
+﻿@using PhotoContest.Common.Enums
+@model PhotoContest.Web.Models.ContestModels.ViewModels.ContestClosedViewModel
+
+
+<div class="modal-header">
+    <h4 class="modal-title">Are you sure you want to finalize this contest?</h4>
+    <hr />
+    <div class="modal-body">
+        <div class="input-group">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Winners)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Winners)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="modal-footer">
+        @using (Ajax.BeginForm("Finalize", "Contest", new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            OnSuccess = "updateUI"
+        }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            <input type="submit" class="btn btn-danger" value="Finalize" />
+        }
+    </div>
+</div>
+
+<script>
+    function updateUI(data) {
+        closeModalFrom("dismiss-contest-modal");
+        $("#contest-status").html("Finalized");
+        $('#dismiss-bnt').remove();
+        $("#finalize-btn").remove();
+    }
+</script>
