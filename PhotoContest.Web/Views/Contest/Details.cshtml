@@ -28,84 +28,95 @@
     </div>
 </div>
 
-<div>
-    <h4>Contest @Model.Title Details</h4>
-    <hr />
-    @Html.LabelFor(m => m.Title)
-    @Html.DisplayFor(m => m.Title)
-    <br />
-
-    @Html.LabelFor(m => m.Description)
-    @Html.DisplayFor(m => m.Description)
-    <br />
-
-    @Html.LabelFor(m => m.Owner)
-    @Html.DisplayFor(m => m.Owner)
-    <br />
-
-    @Html.LabelFor(m => m.DeadlineDate)
-    @Html.DisplayFor(m => m.DeadlineDate)
-    <br />
-
-    @Html.LabelFor(m => m.MaxNumberOfParticipants)
-    @Html.DisplayFor(m => m.MaxNumberOfParticipants)
-
-    <br />
-
-    @Html.LabelFor(m => m.Status)
-    <span id="contest-status">
-        @Html.DisplayFor(m => m.Status)
-    </span>
-    <br />
-
-    @Html.LabelFor(m => m.VotingStrategyType)
-    @Html.DisplayFor(m => m.VotingStrategyType)
-    <br />
-
-    @Html.LabelFor(m => m.ParticipationStrategyType)
-    @Html.DisplayFor(m => m.ParticipationStrategyType)
-
-    <br />
-    @if (Model.Pictures.Any())
-    {
-        <h3>Pictures</h3>
-        <div class="row">
-            @Html.DisplayFor(m => m.Pictures)
+    <div id="finalize-contest-modal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="finalize-contest-modal-content">
+                </div>
+            </div>
         </div>
-    }
+    </div>
 
+    <div>
+        <h4>Contest @Model.Title Details</h4>
+        <hr />
+        @Html.LabelFor(m => m.Title)
+        @Html.DisplayFor(m => m.Title)
+        <br />
 
-</div>
-<div class="btn-group-sm" role="group">
-    @if (Model.CanEdit)
-    {
-        @Html.ActionLink("Edit", "Edit", "Contest", new { id = @Model.Id }, new { @class = "btn btn-success", data_modal = "editContest" })
+        @Html.LabelFor(m => m.Description)
+        @Html.DisplayFor(m => m.Description)
+        <br />
 
-        @Html.ActionLink("Delete", "Delete", "Contest", new { id = @Model.Id }, new { @class = "btn btn-danger", data_modal = "deleteContest" })
+        @Html.LabelFor(m => m.Owner)
+        @Html.DisplayFor(m => m.Owner)
+        <br />
 
-        if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized)
+        @Html.LabelFor(m => m.DeadlineDate)
+        @Html.DisplayFor(m => m.DeadlineDate)
+        <br />
+
+        @Html.LabelFor(m => m.MaxNumberOfParticipants)
+        @Html.DisplayFor(m => m.MaxNumberOfParticipants)
+
+        <br />
+
+        @Html.LabelFor(m => m.Status)
+        <span id="contest-status">
+            @Html.DisplayFor(m => m.Status)
+        </span>
+        <br />
+
+        @Html.LabelFor(m => m.VotingStrategyType)
+        @Html.DisplayFor(m => m.VotingStrategyType)
+        <br />
+
+        @Html.LabelFor(m => m.ParticipationStrategyType)
+        @Html.DisplayFor(m => m.ParticipationStrategyType)
+
+        <br />
+        @if (Model.Pictures.Any())
         {
-            @Html.ActionLink("Dismiss", "DissmisViewInvoker", "Contest", new { id = @Model.Id }, new { @class = "btn btn-danger", data_modal = "dismissContest", id="dismiss-bnt" })
+            <h3>Pictures</h3>
+            <div class="row">
+                @Html.DisplayFor(m => m.Pictures)
+            </div>
         }
 
 
-        if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized && Model.Status != ContestStatusType.Finalized)
+    </div>
+    <div class="btn-group-sm" role="group">
+        @if (Model.CanEdit)
         {
-            @Html.ActionLink("Finalize", "Finalize", "Contest", new { id = @Model.Id }, new { @class = "btn btn-info", data_modal = "finalizeContest", id = "finalize-btn" })
+            @Html.ActionLink("Edit", "Edit", "Contest", new { id = @Model.Id }, new { @class = "btn btn-success", data_modal = "editContest" })
+
+            @Html.ActionLink("Delete", "Delete", "Contest", new { id = @Model.Id }, new { @class = "btn btn-danger", data_modal = "deleteContest" })
+
+            if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized)
+            {
+                @Html.ActionLink("Dismiss", "DissmisViewInvoker", "Contest", new { id = @Model.Id }, new { @class = "btn btn-danger", data_modal = "dismissContest", id = "dismiss-bnt" })
+            }
+
+
+            if (Model.Status != ContestStatusType.Dismissed && Model.Status != ContestStatusType.Finalized)
+            {
+                @Html.ActionLink("Finalize", "FinalizeViewInvoker", "Contest", new { id = @Model.Id }, new { @class = "btn btn-info", data_modal = "finalizeContest", id = "finalize-btn" })
+            }
         }
-    }
 
-    @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
-</div>
+        @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
+    </div>
 
 
-@Scripts.Render("~/bundles/modals")
+    @Scripts.Render("~/bundles/modals")
 
-<script>
-    invokeModalForm('edit-contest-modal-content', 'edit-contest-modal', "editContest");
-    invokeModalForm('delete-contest-modal-content', 'delete-contest-modal', "deleteContest");
-    invokeModalForm('dismiss-contest-modal-content', 'dismiss-contest-modal', "dismissContest");
-    function removeContestFromUI(data) {
-        console.log(data);
-    }
-</script>
+    <script>
+        invokeModalForm('edit-contest-modal-content', 'edit-contest-modal', "editContest");
+        invokeModalForm('delete-contest-modal-content', 'delete-contest-modal', "deleteContest");
+        invokeModalForm('dismiss-contest-modal-content', 'dismiss-contest-modal', "dismissContest");
+        invokeModalForm('finalize-contest-modal-content', 'finalize-contest-modal', "finalizeContest");
+
+        function removeContestFromUI(data) {
+            console.log(data);
+        }
+    </script>

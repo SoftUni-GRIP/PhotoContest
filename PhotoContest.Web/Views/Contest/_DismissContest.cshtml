@@ -1,7 +1,9 @@
-﻿@model PhotoContest.Web.Models.ContestModels.ViewModels.ContestBasicDetails
+﻿@using PhotoContest.Common.Enums
+@model PhotoContest.Web.Models.ContestModels.ViewModels.ContestBasicDetails
+
 
 <div class="modal-header">
-    <h4 class="modal-title">Are you sure you want to delete this contest?</h4>
+    <h4 class="modal-title">Are you sure you want to dismiss this contest?</h4>
     <hr />
     <div class="modal-body">
         <div class="input-group">
@@ -33,23 +35,24 @@
         </div>
     </div>
     <div class="modal-footer">
-        @using (Ajax.BeginForm("Delete", "Contest", new AjaxOptions()
+        @using (Ajax.BeginForm("Dismiss", "Contest", new AjaxOptions()
     {
         HttpMethod = "POST",
-        OnSuccess = "redirectToPage"
+        OnSuccess = "updateUI"
     }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.Id)
-            <input type="submit" class="btn btn-danger" value="Delete" />
+            <input type="submit" class="btn btn-danger" value="Dismiss" />
         }
     </div>
 </div>
 
 <script>
-    function redirectToPage(data) {
-        if (data.Message === "home") {
-            document.location.href = "/";
-        }
+    function updateUI(data) {
+        closeModalFrom("dismiss-contest-modal");
+        $("#contest-status").html("Dissmised");
+        $('#dismiss-bnt').remove();
+        $("#finalize-btn").remove();
     }
 </script>

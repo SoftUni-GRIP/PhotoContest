@@ -251,6 +251,7 @@
     <Compile Include="Models\AccountModels\VerifyCodeViewModel.cs" />
     <Compile Include="Models\ContestModels\InputModels\CreateContestInputModel.cs" />
     <Compile Include="Models\ContestModels\ViewModels\ContestBasicDetails.cs" />
+    <Compile Include="Models\ContestModels\ViewModels\ContestClosedViewModel.cs" />
     <Compile Include="Models\ContestModels\ViewModels\ContestFullDetailsModel.cs" />
     <Compile Include="Models\HomeControllerModels\HomePageViewModel.cs" />
     <Compile Include="Models\PictureViewModel.cs" />
@@ -355,7 +356,11 @@
     <Content Include="Views\Contest\_Delete.cshtml" />
     <Content Include="Views\Contest\_DismissContest.cshtml" />
     <Content Include="Views\Contest\_CreatePrize.cshtml" />
+
     <Content Include="Views\Contest\_Edit.cshtml" />
+
+    <Content Include="Views\Contest\_FinalizeContest.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -186,6 +186,7 @@
         [ValidateAntiForgeryToken]
         public JsonResult Edit(ContestBasicDetails model)
         {
+            //TODO Validation
             var contest = this.Data.Contests.Find(model.Id);
 
             if (contest != null)
@@ -245,6 +246,9 @@
 
         private void EditContestData(Contest contest,ContestBasicDetails model)
         {
+
+            //TODO Validation
+
             contest.Title = model.Title;
             contest.Description = model.Description;
 
