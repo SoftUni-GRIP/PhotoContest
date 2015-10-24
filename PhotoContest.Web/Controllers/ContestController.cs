@@ -41,7 +41,7 @@
                 var contest = Mapper.Map<ContestInputModel, Contest>(model);
                 contest.OwnerId = CurrentUser.Id;
 
-                if (model.UserIds.Count !=0)
+                if (model.UserIds.Count != 0)
                 {
                     foreach (var id in model.UserIds)
                     {
@@ -60,7 +60,7 @@
                 }
 
                 this.Data.Contests.Add(contest);
-               
+
                 this.Data.SaveChanges();
                 this.cache.RemoveContestsFromCache();
                 //TODO: Remove magic strings
@@ -197,7 +197,7 @@
             }
 
             this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
-            return this.Json(new { Message = "error"},JsonRequestBehavior.AllowGet);
+            return this.Json(new { Message = "error" }, JsonRequestBehavior.AllowGet);
         }
 
         private bool CanEdit(Contest contest)
@@ -244,7 +244,7 @@
             this.cache.RemoveContestsFromCache();
         }
 
-        private void EditContestData(Contest contest,ContestBasicDetails model)
+        private void EditContestData(Contest contest, ContestBasicDetails model)
         {
 
             //TODO Validation
@@ -279,10 +279,10 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         // TODO fix this binding model
-        public JsonResult Dismiss(Contest contest)
+        public JsonResult Dismiss(int id)
         {
 
-            //var contest = this.Data.Contests.Find(id);
+            var contest = this.Data.Contests.Find(id);
             // TODO add button for activation
             // TODO add button for Finalize
             // TODO add status on details, and update on success
@@ -296,9 +296,55 @@
         }
 
         [HttpGet]
-        public ActionResult Finalize(Contest contest)
+        public ActionResult FinalizeViewInvoker(Contest contest)
         {
-            return this.PartialView();
+            if (contest != null)
+            {
+                var model = Mapper.Map<Contest, ContestClosedViewModel>(contest);
+                var winners = contest.Pictures
+                        .OrderByDescending(p => p.Votes.Average(v => v.Rating))
+                        .Select(p => p.User.UserName)
+                        .Take(contest.WinnersCount)
+                        .ToList();
+                //TODO check if no winners
+
+                foreach (var winner in winners)
+                {
+                    model.Winners.Add(winner);
+                }
+
+                return this.PartialView("_FinalizeContest", model);
+            }
+            else
+            {
+                //TODO create not found view
+                return this.HttpNotFound();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Finalize(int id)
+        {
+            var contest = this.Data.Contests.Find(id);
+            contest.ClosedOn = DateTime.Now;
+            contest.Status = ContestStatusType.Finalized;
+            var winners = contest.Pictures
+                .OrderByDescending(p => p.Votes.Average(v => v.Rating))
+                .Select(p => p.User)
+                .Take(contest.WinnersCount);
+
+            //TODO check if no winners
+            foreach (var winner in winners)
+            {
+                contest.Winners.Add(winner);
+            }
+
+            this.Data.SaveChanges();
+            this.cache.RemoveContestsFromCache();
+            this.AddNotification("Contest successfully finalized!", NotificationType.SUCCESS);
+
+            return this.Json(new { Message = "Finalized" });
         }
 
         [HttpGet]
