@@ -8,8 +8,11 @@
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-{version}.js")
-                .Include("~/Scripts/jquery.unobtrusive-ajax.min.js")
                 .Include("~/Scripts/jquery-ui-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/unobtrusive")
+                  .Include("~/Scripts/jquery.unobtrusive-ajax.min.js")
+                  );
 
             bundles.Add(new ScriptBundle("~/bundles/modals")
             .Include("~/Scripts/modalFormInvoker.js"));
