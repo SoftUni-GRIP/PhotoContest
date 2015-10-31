@@ -1,0 +1,115 @@
+﻿@*@using PhotoContest.Models
+
+@(Html.Kendo().Grid<PhotoContest.Models.User>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.Email);
+        columns.Bound(c => c.EmailConfirmed);
+        columns.Bound(c => c.PasswordHash);
+        columns.Bound(c => c.SecurityStamp);
+        columns.Bound(c => c.PhoneNumber);
+        columns.Bound(c => c.PhoneNumberConfirmed);
+        columns.Bound(c => c.TwoFactorEnabled);
+        columns.Bound(c => c.LockoutEndDateUtc);
+        columns.Bound(c => c.LockoutEnabled);
+        columns.Bound(c => c.AccessFailedCount);
+        columns.Bound(c => c.UserName);
+      })
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("Users_Read", "Administration"))
+      )
+)*@
+
+
+<div id="clientsDb">
+    @(Html.Kendo().Grid<PhotoContest.Models.User>()
+    .ToolBar(toolBar =>
+    {
+        toolBar.Template(
+            @<Text>
+            <input type="search" id="searchbox" class="SearchRight SearchTopMargin" />
+            <b class="FloatRight SearchTopMarginExtra">Search the grid: </b>
+            </Text>);
+    })
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.UserName)
+              .Width(240);
+            columns.Bound(c => c.Email).Width(190);
+            columns.Bound(c => c.PhoneNumber);
+            columns.Bound(c => c.PhoneNumberConfirmed).Width(240);
+        })
+        .HtmlAttributes(new { style = "height: 380px;" })
+        .Scrollable()
+        .Groupable()
+        .Sortable()
+        .Pageable(pageable => pageable
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(5))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Read(read => read.Action("Users_Read", "Administration"))
+        )
+    )
+</div>
+
+<style>
+    #clientsDb {
+        width: 952px;
+        height: 396px;
+        margin: 20px auto 0;
+        padding: 51px 4px 0 4px;
+        background: url('@Url.Content("~/content/web/grid/clientsDb.png")') no-repeat 0 0;
+    }
+
+    .customer-photo {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-size: 32px 35px;
+        background-position: center center;
+        vertical-align: middle;
+        line-height: 32px;
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, .2);
+        margin-left: 5px;
+    }
+
+    .customer-name {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 32px;
+        padding-left: 3px;
+    }
+</style>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            //change event
+            $("#searchbox").keyup(function () {
+                var val = $('#searchbox').val();
+                if(val!=""){
+                $("#grid").data("kendoGrid").dataSource.filter({
+                    logic: "or",
+                    filters: [
+                        {
+                            field: "UserName",
+                            operator: "contains",
+                            value: val
+                        },
+                        {
+                            field: "Email",
+                            operator: "contains",
+                            value: val
+                        }
+                    ]
+                });
+            }});
+});
+
+</script>

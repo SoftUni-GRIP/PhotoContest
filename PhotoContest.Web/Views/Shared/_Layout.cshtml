@@ -78,7 +78,10 @@
                     {
                         <li>@Html.ActionLink("Create Contest", "Create", "Contest")</li>
                     }
-
+                    @if (User.IsInRole("Administrator") && User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Admin Panel", "Index", "Administration")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

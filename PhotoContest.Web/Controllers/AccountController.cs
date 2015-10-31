@@ -74,7 +74,7 @@
                     //hubContext.Clients.AllExcept(user.UserName).kur("qjhui");
                     if (UserManager.IsInRole(user.Id, "Administrator"))
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("Index", "Home");
                     }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
