@@ -25,6 +25,11 @@
                 "~/Scripts/moment.js",
                 "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/kendo-console").Include(
+                "~/Scripts/kendo/kendo.console.js"
+              ));
+
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap-datetimepicker")
             .Include("~/Scripts/bootstrap-datetimepicker.min.js")
             .Include("~/Scripts/bootstrap-calendar-picker.js")
