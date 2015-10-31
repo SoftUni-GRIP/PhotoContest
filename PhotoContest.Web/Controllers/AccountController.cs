@@ -4,13 +4,15 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+    using Hubs;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.AspNet.SignalR;
     using Microsoft.Owin.Security;
     using Models.AccountModels;
     using PhotoContest.Models;
 
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -66,7 +68,10 @@
             switch (result)
             {
                 case SignInStatus.Success:
+                     //var hubContext = GlobalHost.ConnectionManager.GetHubContext<BaseHub>();
+            
                     var user = await UserManager.FindAsync(model.UserName, model.Password);
+                    //hubContext.Clients.AllExcept(user.UserName).kur("qjhui");
                     if (UserManager.IsInRole(user.Id, "Administrator"))
                     {
                         return RedirectToAction("Index", "Admin");

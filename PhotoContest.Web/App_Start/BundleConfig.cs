@@ -10,6 +10,9 @@
                 "~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/jquery-ui-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
+                "~/Scripts/signalRConnection.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive")
                   .Include("~/Scripts/jquery.unobtrusive-ajax.min.js")
                   );

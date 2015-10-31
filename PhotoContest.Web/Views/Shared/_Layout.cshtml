@@ -43,6 +43,21 @@
     <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
 </head>
 <body>
+
+
+    @*signalR*@
+
+    @*@section scripts {*@
+
+    @*  *@}
+
+    @*endSingalR*@
+
+
+
+
+
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -78,6 +93,11 @@
         </footer>
     </div>
 
+
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    @Scripts.Render("~/bundles/signalR")
 
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/kendo-console")
