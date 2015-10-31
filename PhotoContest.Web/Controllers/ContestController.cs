@@ -296,19 +296,23 @@
         }
 
         [HttpGet]
-        public ActionResult FinalizeViewInvoker(Contest contest)
+        public ActionResult FinalizeViewInvoker(int id)
         {
+            var contest = this.Data.Contests.Find(id);
             if (contest != null)
             {
                 var model = Mapper.Map<Contest, ContestClosedViewModel>(contest);
-                var winners = contest.Pictures
-                        .OrderByDescending(p => p.Votes.Average(v => v.Rating))
-                        .Select(p => p.User.UserName)
-                        .Take(contest.WinnersCount)
-                        .ToList();
-                //TODO check if no winners
+                var users = this.Data.Pictures.All().Where(x => x.ContestId == id)
+                .Include("Votes").OrderByDescending(x => x.Votes.Average(v => v.Rating))
+                .Select(x => x.User.UserName).Take(contest.WinnersCount).ToList();
+                //var winners = contest.Pictures
+                //        .OrderByDescending(p => p.Votes.Average(v => v.Rating))
+                //        .Select(p => p.User.UserName)
+                //        
+                //        .ToList();
+                ////TODO check if no winners
 
-                foreach (var winner in winners)
+                foreach (var winner in users)
                 {
                     model.Winners.Add(winner);
                 }
