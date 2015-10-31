@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DropboxAccessTDropboxAccessToken" xml:space="preserve">
-    <value>s779AjvwlzYAAAAAAAAAOS25ypiJtL-JV2yQIHs-vmoVB-IOTH0rGrppZQthknMz</value>
+    <value>s779AjvwlzYAAAAAAAAASHOjCCuezffHzqpemjGbwvzdSzR4aykMAINEKSjc1vt4</value>
   </data>
   <data name="DropboxApiKey" xml:space="preserve">
-    <value>nvullzomwowjerj</value>
+    <value>rdm6w903su1ieqx</value>
   </data>
   <data name="DropboxApiSecret" xml:space="preserve">
-    <value>ogkecs3rid1g3zw</value>
+    <value>jtsqlem0rwzgtuu</value>
   </data>
   <data name="DropboxFolder" xml:space="preserve">
-    <value>PhotoContest</value>
+    <value>PhotoContest2</value>
   </data>
 </root>

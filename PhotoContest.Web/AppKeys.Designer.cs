@@ -61,7 +61,7 @@ namespace PhotoContest.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to s779AjvwlzYAAAAAAAAAOS25ypiJtL-JV2yQIHs-vmoVB-IOTH0rGrppZQthknMz.
+        ///   Looks up a localized string similar to s779AjvwlzYAAAAAAAAASHOjCCuezffHzqpemjGbwvzdSzR4aykMAINEKSjc1vt4.
         /// </summary>
         internal static string DropboxAccessTDropboxAccessToken {
             get {
@@ -70,7 +70,7 @@ namespace PhotoContest.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nvullzomwowjerj.
+        ///   Looks up a localized string similar to rdm6w903su1ieqx.
         /// </summary>
         internal static string DropboxApiKey {
             get {
@@ -79,7 +79,7 @@ namespace PhotoContest.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ogkecs3rid1g3zw.
+        ///   Looks up a localized string similar to jtsqlem0rwzgtuu.
         /// </summary>
         internal static string DropboxApiSecret {
             get {
@@ -88,7 +88,7 @@ namespace PhotoContest.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PhotoContest.
+        ///   Looks up a localized string similar to PhotoContest2.
         /// </summary>
         internal static string DropboxFolder {
             get {

@@ -1,4 +1,6 @@
-﻿namespace PhotoContest.Web.Controllers
+﻿using PhotoContest.Data;
+
+namespace PhotoContest.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +13,11 @@
 
     public class UploadController : BaseController
     {
-        protected UploadController(IPhotoContestData data)
+        public UploadController() : base(new PhotoContestData(new PhotoContextDbContext()))
+        {
+        }
+
+        public UploadController(IPhotoContestData data)
             : base(data)
         {
         }
