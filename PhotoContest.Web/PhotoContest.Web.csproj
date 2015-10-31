@@ -45,6 +45,14 @@
       <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DropNet, Version=1.10.23.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DropNet.1.10.23.0\lib\net40\DropNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.4.0.4\lib\net45\ImageResizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Kendo.Mvc">
       <HintPath>..\..\..\..\..\Program Files (x86)\Telerik\UI for ASP.NET MVC Q3 2015\wrappers\aspnetmvc\Binaries\Mvc5\Kendo.Mvc.dll</HintPath>
       <Private>True</Private>
@@ -120,6 +128,10 @@
     </Reference>
     <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -239,6 +251,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppKeys.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppKeys.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -250,6 +267,7 @@
     <Compile Include="Controllers\ContestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -260,6 +278,8 @@
     <Compile Include="Infrastructure\CacheService\BaseCacheService.cs" />
     <Compile Include="Infrastructure\CacheService\ContestCacheService.cs" />
     <Compile Include="Infrastructure\CacheService\ICacheService.cs" />
+    <Compile Include="Infrastructure\Dropbox\Dropbox.cs" />
+    <Compile Include="Infrastructure\Dropbox\UploadImages.cs" />
     <Compile Include="Infrastructure\Mappings\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\Mappings\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
@@ -1020,7 +1040,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="temp\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1038,6 +1060,12 @@
       <Project>{0dc59cb3-2e15-4128-9c9e-f636ec1aa61b}</Project>
       <Name>PhotoContest.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppKeys.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppKeys.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
