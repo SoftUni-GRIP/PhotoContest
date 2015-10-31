@@ -25,6 +25,11 @@
             {
                 var currentUserId = User.Identity.GetUserId();
                 CurrentUser = Data.Users.Find(currentUserId);
+                bool isAdmin = User.IsInRole("Administrator");
+                if(isAdmin)
+                {
+                    this.RedirectToAction("Create", "Contest");
+                }
             }
 
             return result;

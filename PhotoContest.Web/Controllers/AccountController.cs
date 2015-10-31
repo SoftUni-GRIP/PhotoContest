@@ -66,6 +66,11 @@
             switch (result)
             {
                 case SignInStatus.Success:
+                    var user = await UserManager.FindAsync(model.UserName, model.Password);
+                    if (UserManager.IsInRole(user.Id, "Administrator"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -439,6 +444,7 @@
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
+
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
