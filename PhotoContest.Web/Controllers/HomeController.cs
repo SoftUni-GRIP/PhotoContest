@@ -67,5 +67,16 @@
                 .ToList();
             return this.PartialView("_SearchedUsers", users);
         }
+
+        public ActionResult SearchUsersVote(string input)
+        {
+            var users = this.Data.Users
+                .All()
+                .Where(x => x.UserName.StartsWith(input))
+                .Project()
+                .To<UserSearchViewModel>()
+                .ToList();
+            return this.PartialView("_SearchedUsersVote", users);
+        }
     }
 }

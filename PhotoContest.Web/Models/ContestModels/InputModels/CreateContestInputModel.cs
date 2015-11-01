@@ -14,6 +14,7 @@
         {
             this.UserIds = new List<string>();
             this.Prizes = new List<decimal>();
+            this.VotersIds = new List<string>();
         }
 
         [Required]
@@ -40,7 +41,9 @@
 
         [Required]
         [EnsureOneElement(ErrorMessage = "You have to create at least one prize")]
-        public ICollection<decimal> Prizes { get; set; } 
+        public ICollection<decimal> Prizes { get; set; }
+
+        public ICollection<string> VotersIds { get; set; } 
 
         public int? MaxNumberOfParticipants { get; set; }
     }

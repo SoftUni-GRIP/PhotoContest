@@ -8,6 +8,7 @@
 
     public class Contest : IEntity, IHaveCreationDate
     {
+        private ICollection<User> voters; 
         private ICollection<User> participants;
         private ICollection<Picture> pictures;
         private ICollection<Reward> rewards;
@@ -15,6 +16,7 @@
 
         public Contest()
         {
+            this.voters = new HashSet<User>();
             this.winners = new HashSet<User>();
             this.pictures = new HashSet<Picture>();
             this.participants = new HashSet<User>();
@@ -34,7 +36,7 @@
         public virtual User Owner { get; set; }
 
         // Reward strategy
-        [Range(0, 5)]
+        //[Range(0, 5)]
         public int WinnersCount { get; set; }
 
         public VotingStrategyType VotingStrategyType { get; set; }
@@ -100,6 +102,7 @@
             }
         }
 
+        public virtual ICollection<User> Voters { get { return this.voters; } set { this.voters = value; } }
         public DateTime CreatedOn { get; set; }
     }
 }
