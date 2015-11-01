@@ -23,6 +23,7 @@ namespace PhotoContest.Data.Migrations
         {
             if (!context.Roles.Any())
             {
+                this.SeedUsers(context);
                 this.SeedRoles(context);
                 this.SeedAmin(context);
                 this.SeedOwner(context);
@@ -122,6 +123,15 @@ namespace PhotoContest.Data.Migrations
             }
 
             context.SaveChanges();
+        }
+        private void SeedUsers(PhotoContextDbContext context)
+        {
+            var store = new UserStore<User>(context);
+            var manager = new UserManager<User>(store);
+            var gosho = new User { UserName = "gosho", Email = "gosho@goshev.bg" };
+            var pesho = new User { UserName = "pesho", Email = "pesho@peshev.bg" };
+            manager.Create(gosho, "password");
+            manager.Create(pesho, "password");
         }
 
         private void SeedRoles(PhotoContextDbContext context)

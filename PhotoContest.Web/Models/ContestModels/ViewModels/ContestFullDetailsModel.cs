@@ -28,8 +28,9 @@
 
         public bool CanEdit { get; set; }
 
-        public ICollection<PictureViewModel> Pictures { get; set; } 
+        public bool CanParticipate { get; set; }
 
+        public ICollection<PictureViewModel> Pictures { get; set; } 
 
         public void CreateMappings(AutoMapper.IConfiguration configuration)
         {

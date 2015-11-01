@@ -104,30 +104,23 @@
             }
         }
 
-        <div class="configuration k-widget k-header" style="width: 300px">
-            <span class="infoHead">Information</span>
-            <p>
-                The Upload is able to upload files out-of-band using the
-                HTML5 File API with fallback for legacy browsers.
-            </p>
-            <p>
-                You need to configure save action that will receive
-                the uploaded files.
-                An optional remove action is also available.
-            </p>
-        </div>
-
-        <div style="width:45%">
-            <div class="demo-section">
-                @(Html.Kendo().Upload()
-            .Name("files")
-            .Async(a => a
-                .Save("Save", "Upload", new {contestId = @Model.Id})
-                .AutoUpload(true)
-            )
-                )
+        @if (Model.CanParticipate)
+        {
+            <div class="configuration k-widget k-header" style="width: 300px">
+                <span class="infoHead">Upload pictures</span>
             </div>
-        </div>
+
+            <div style="width: 45%">
+                <div class="demo-section">
+                    @(Html.Kendo().Upload()
+                          .Name("files")
+                          .Async(a => a
+                              .Save("Save", "Upload", new {contestId = @Model.Id})
+                              .AutoUpload(true)
+                          ))
+                </div>
+            </div>
+        }
 
         @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
     </div>

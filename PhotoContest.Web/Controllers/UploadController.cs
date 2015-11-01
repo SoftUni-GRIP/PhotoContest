@@ -1,6 +1,4 @@
-﻿using PhotoContest.Data;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +8,7 @@ namespace PhotoContest.Web.Controllers
     using PhotoContest.Data.Contracts;
     using PhotoContest.Models;
     using PhotoContest.Web.Infrastructure.Dropbox;
+    using PhotoContest.Data;
 
     public class UploadController : BaseController
     {

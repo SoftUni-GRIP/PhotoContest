@@ -71,26 +71,30 @@
         }
 
         [HttpGet]
-        // this is not working with binding model. Picutes has to be included
+        //TODO: Filters
         public ActionResult Details(int id)
         {
-            var contest = this.Data.Contests
-                .All()
-                .Where(x => x.Id == id)
-                .Include("Pictures").FirstOrDefault();
+            var contest = this.Data.Contests.All().Where(x => x.Id == id).Include("Pictures").FirstOrDefault();
 
-            if (contest != null)
+            //TODO: Implement Error handling logic
+            if (contest == null)
             {
-                var model = Mapper.Map<Contest, ContestFullDetailsModel>(contest);
-                model.CanEdit = this.CanEdit(contest);
-                return View(model);
-            }
-            else
-            {
-                //return view not fond
                 throw new NotImplementedException();
             }
 
+            var model = Mapper.Map<Contest, ContestFullDetailsModel>(contest);
+
+            if (contest.OwnerId == this.CurrentUser.Id || this.User.IsInRole("Administrator"))
+            {
+                model.CanEdit = this.CanEdit(contest);    
+            }
+
+            if (contest.Participants.Any(u => u.Id == this.CurrentUser.Id) && contest.Status == ContestStatusType.Active)
+            {
+                model.CanParticipate = true;
+            }
+            
+            return View(model);
         }
 
         [HttpGet]
