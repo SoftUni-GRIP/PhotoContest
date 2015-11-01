@@ -1,27 +1,11 @@
-﻿@*@using PhotoContest.Models
-
-@(Html.Kendo().Grid<PhotoContest.Models.User>()
-      .Name("grid")
-      .Columns(columns =>
-      {
-        columns.Bound(c => c.Email);
-        columns.Bound(c => c.EmailConfirmed);
-        columns.Bound(c => c.PasswordHash);
-        columns.Bound(c => c.SecurityStamp);
-        columns.Bound(c => c.PhoneNumber);
-        columns.Bound(c => c.PhoneNumberConfirmed);
-        columns.Bound(c => c.TwoFactorEnabled);
-        columns.Bound(c => c.LockoutEndDateUtc);
-        columns.Bound(c => c.LockoutEnabled);
-        columns.Bound(c => c.AccessFailedCount);
-        columns.Bound(c => c.UserName);
-      })
-      .Scrollable()
-      .DataSource(dataSource => dataSource
-          .Ajax()
-          .Read(read => read.Action("Users_Read", "Administration"))
-      )
-)*@
+﻿<div id="edit-user-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="edit-user-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div id="clientsDb">
@@ -34,27 +18,31 @@
             <b class="FloatRight SearchTopMarginExtra">Search the grid: </b>
             </Text>);
     })
-        .Name("grid")
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.UserName)
-              .Width(240);
-            columns.Bound(c => c.Email).Width(190);
-            columns.Bound(c => c.PhoneNumber);
-            columns.Bound(c => c.PhoneNumberConfirmed).Width(240);
-        })
-        .HtmlAttributes(new { style = "height: 380px;" })
-        .Scrollable()
-        .Groupable()
-        .Sortable()
-        .Pageable(pageable => pageable
-            .Refresh(true)
-            .PageSizes(true)
-            .ButtonCount(5))
-        .DataSource(dataSource => dataSource
-            .Ajax()
-            .Read(read => read.Action("Users_Read", "Administration"))
-        )
+                                                .Name("grid")
+                                                .Columns(columns =>
+                                                {
+                                                    columns.Bound(c => c.UserName)
+                                                        .Width(240);
+                                                    columns.Bound(c => c.Email).Width(190);
+                                                    columns.Bound(c => c.PhoneNumber);
+                                                    columns.Bound(c => c.PhoneNumberConfirmed).Width(240);
+                                                    columns.Bound(c => c.Id).Title("Edit User").
+                                                    Groupable(false)
+                                                    .ClientTemplate((@Html.ActionLink("Edit", "Edit", "User", new { Id = "#=Id#" }, new { @class = "btn btn-success", data_modal = "editUser" }).ToHtmlString()));
+                                                })
+                                                .HtmlAttributes(new { style = "height: 380px;" })
+                                                .Scrollable()
+                                                .Groupable()
+                                                .Sortable()
+                                                .Pageable(pageable => pageable
+                                                    .Refresh(true)
+                                                    .PageSizes(true)
+                                                    .ButtonCount(5))
+                                                .DataSource(dataSource => dataSource
+                                                    .Ajax()
+                                                    .Read(read => read.Action("Users_Read", "Administration"))
+                                                        )
+                                                        .Events(events => events.DataBound("onBound"))
     )
 </div>
 
@@ -88,12 +76,25 @@
     }
 </style>
 
+
+@Scripts.Render("~/bundles/modals")
+
+<script>
+
+    function onBound() {
+        console.log($("#grid").data("kendoGrid").dataSource.data().length);
+        invokeModalForm('edit-user-modal-content', 'edit-user-modal', "editUser");
+    }
+</script>
+
+
+
 <script type="text/javascript">
-        $(document).ready(function () {
-            //change event
-            $("#searchbox").keyup(function () {
-                var val = $('#searchbox').val();
-                if(val!=""){
+    $(document).ready(function () {
+        //change event
+        $("#searchbox").keyup(function () {
+            var val = $('#searchbox').val();
+            if (val != "") {
                 $("#grid").data("kendoGrid").dataSource.filter({
                     logic: "or",
                     filters: [
@@ -109,7 +110,10 @@
                         }
                     ]
                 });
-            }});
-});
+            } else {
+                $("#grid").data("kendoGrid").dataSource.filter([]);
+            }
+        });
+    });
 
 </script>

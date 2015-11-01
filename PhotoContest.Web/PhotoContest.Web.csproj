@@ -269,6 +269,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -310,6 +311,7 @@
     <Compile Include="Models\ContestModels\ViewModels\ContestFullDetailsModel.cs" />
     <Compile Include="Models\HomeControllerModels\HomePageViewModel.cs" />
     <Compile Include="Models\PictureViewModel.cs" />
+    <Compile Include="Models\UserModels\ViewModels\UserDetails.cs" />
     <Compile Include="Models\VoteInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1039,6 +1041,7 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\User\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

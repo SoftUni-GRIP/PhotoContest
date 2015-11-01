@@ -34,14 +34,8 @@ namespace PhotoContest.Web.Controllers
                  Id = user.Id,
                  Email = user.Email,
                  EmailConfirmed = user.EmailConfirmed,
-                 PasswordHash = user.PasswordHash,
-                 SecurityStamp = user.SecurityStamp,
                  PhoneNumber = user.PhoneNumber,
                  PhoneNumberConfirmed = user.PhoneNumberConfirmed,
-                 TwoFactorEnabled = user.TwoFactorEnabled,
-                 LockoutEndDateUtc = user.LockoutEndDateUtc,
-                 LockoutEnabled = user.LockoutEnabled,
-                 AccessFailedCount = user.AccessFailedCount,
                  UserName = user.UserName
              });
 

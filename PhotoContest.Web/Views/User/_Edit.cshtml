@@ -1,0 +1,53 @@
+﻿@model PhotoContest.Web.Models.UserModels.ViewModels.UserDetails
+
+@using (Ajax.BeginForm("Edit", "User", new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        OnSuccess = "redirectToPage"
+    }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id)
+    <h3>Are you sure you want to edit this user?</h3>
+    <div>
+        <hr />
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-danger" value="Save" />
+}
+
+<script>
+    function redirectToPage(data) {
+        if (data.Message === "Administration") {
+            document.location.href = "/Administration";
+        }
+    }
+</script>
+
+
