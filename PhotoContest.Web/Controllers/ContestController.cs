@@ -89,11 +89,19 @@
                 model.CanEdit = this.CanEdit(contest);    
             }
 
-            if (contest.Participants.Any(u => u.Id == this.CurrentUser.Id) && contest.Status == ContestStatusType.Active)
+            if (contest.Status == ContestStatusType.Active)
             {
-                model.CanParticipate = true;
+                if (contest.ParticipationStrategyType == ParticipationStrategyType.Open && contest.MaxNumberOfParticipants > contest.Participants.Count)
+                {
+                    model.CanParticipate = true;
+                }
+
+                if (contest.Participants.Any(u => u.Id == this.CurrentUser.Id))
+                {
+                    model.CanParticipate = true;
+                }
             }
-            
+
             return View(model);
         }
 
