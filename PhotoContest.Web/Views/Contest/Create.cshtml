@@ -135,10 +135,6 @@
     <input id="user-search-input" style="visibility: hidden" name="path" type="text" placeholder="Search for users" />
 }
 
-<div id="searched-users">
-    <p>searched</p>
-</div>
-
 @using (Ajax.BeginForm("SearchUsersVote", "Home", null, new AjaxOptions()
 {
     HttpMethod = "POST",
@@ -150,23 +146,36 @@
     <input id="user-search-vote-input" style="visibility: hidden" name="input" type="text" placeholder="Search for users" />
 }
 
+
+<div id="searched-users">
+    <p>searched</p>
+</div>
+
+<br/>
+
 <div id="searched-users-vote">
     <p>searched</p>
 </div>
 
+<br />
 
 <div id="prizes">
     <p>prizes</p>
 </div>
 
+<br />
+
 <div id="added-users" style="visibility: hidden">
     <p>Added users</p>
 </div>
+
+<br/>
 
 <div id="added-users-vote" style="visibility: hidden">
     <p>Added users voting</p>
 </div>
 
+<br/>
 
 <div>
     @Html.ActionLink("Back to List", "Index", "Home")

@@ -114,7 +114,7 @@
                     model.CanVote = true;
                 }
 
-                if (contest.VotingStrategyType == VotingStrategyType.Open)
+                if (contest.VotingStrategyType == VotingStrategyType.Open && contest.OwnerId != this.CurrentUser.Id)
                 {
                     model.CanVote = true;
                 }
