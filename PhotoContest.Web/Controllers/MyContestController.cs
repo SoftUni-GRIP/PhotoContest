@@ -2,11 +2,15 @@
 {
     using System.Web.Mvc;
     using System.Linq;
+    using System.Collections.Generic;
     using Data.Contracts;
     using Infrastructure.CacheService;
     using AutoMapper.QueryableExtensions;
     using Models.ContestModels.ViewModels;
     using Models.HomeControllerModels;
+    using PagedList;
+    using Common;
+    using Infrastructure.Linq;
 
     [Authorize]
     public class MyContestController : BaseController
@@ -18,12 +22,13 @@
             this.cache = cache;
         }
 
-        public ActionResult Index()
+        public ActionResult Index() //int? page
         {
-            var contests = this.cache.Contests.Where(c => c.OwnerId == this.CurrentUser.Id)
+            var contests = this.cache.Contests.WhereUserIsTheContestOwner()
                                               .AsQueryable()
                                               .Project()
                                               .To<ContestBasicDetails>()
+                                              //.ToPagedList(page ?? GlobalConstants.DefaultStartingPage, GlobalConstants.DefaultPageSize)
                                               .ToList();
 
             var model = new HomePageViewModel()
@@ -35,12 +40,13 @@
             return View(model);
         }
 
-        public ActionResult Participated()
+        public ActionResult Participated() //int? page
         {
-            var contests = this.cache.Contests.Where(c => c.Participants.Any(p => p.Id == this.CurrentUser.Id))
+            var contests = this.cache.Contests.WhereUserIsParticipant()
                                               .AsQueryable()
                                               .Project()
                                               .To<ContestBasicDetails>()
+                                              //.ToPagedList(GlobalConstants.DefaultStartingPage, GlobalConstants.DefaultPageSize)
                                               .ToList();
 
             var model = new HomePageViewModel()
@@ -52,12 +58,13 @@
             return View(model);
         }
 
-        public ActionResult Voted()
+        public ActionResult Voted() //int? page
         {
-            var contests = this.cache.Contests.Where(c => c.Voters.Any(v => v.Id == this.CurrentUser.Id))
+            var contests = this.cache.Contests.WhereUserIsVoter()
                                               .AsQueryable()
                                               .Project()
                                               .To<ContestBasicDetails>()
+                                              //.ToPagedList(GlobalConstants.DefaultStartingPage, GlobalConstants.DefaultPageSize)
                                               .ToList();
 
             var model = new HomePageViewModel()
