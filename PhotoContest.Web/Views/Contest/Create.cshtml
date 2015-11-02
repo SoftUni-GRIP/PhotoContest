@@ -135,18 +135,47 @@
     <input id="user-search-input" style="visibility: hidden" name="path" type="text" placeholder="Search for users" />
 }
 
+@using (Ajax.BeginForm("SearchUsersVote", "Home", null, new AjaxOptions()
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "searched-users-vote",
+    // TODO make function on succsess if needde
+
+}, new { id = "users-search-vote-form" }))
+{
+    <input id="user-search-vote-input" style="visibility: hidden" name="input" type="text" placeholder="Search for users" />
+}
+
+
 <div id="searched-users">
     <p>searched</p>
 </div>
+
+<br/>
+
+<div id="searched-users-vote">
+    <p>searched</p>
+</div>
+
+<br />
 
 <div id="prizes">
     <p>prizes</p>
 </div>
 
+<br />
+
 <div id="added-users" style="visibility: hidden">
     <p>Added users</p>
 </div>
 
+<br/>
+
+<div id="added-users-vote" style="visibility: hidden">
+    <p>Added users voting</p>
+</div>
+
+<br/>
 
 <div>
     @Html.ActionLink("Back to List", "Index", "Home")
@@ -163,6 +192,7 @@
     <script>
         invokeModalForm('prizes-modal-content', 'prizes-modal', "createPrize");
         datetimePickerInvoker('DeadlineDate');
+
         $('#user-search-input').keyup(function () {
             if ($('#user-search-input').val().length > 0) {
                 $('#users-search-form').submit();
@@ -170,6 +200,16 @@
 
             if ($('#user-search-input').val().length === 0) {
                 $('#searched-users').html("");
+            }
+        });
+
+        $('#user-search-vote-input').keyup(function () {
+            if ($('#user-search-vote-input').val().length > 0) {
+                $('#users-search-vote-form').submit();
+            }
+
+            if ($('#user-search-vote-input').val().length === 0) {
+                $('#searched-users-vote').html("");
             }
         });
 
@@ -182,7 +222,14 @@
             }
         });
 
+        $('#VotingStrategyType').change(function () {
+            var value = $('#VotingStrategyType :selected').text();
+            if (value === 'Closed') {
+                $('#user-search-vote-input').css("visibility", "visible");
+            } else {
+                $('#user-search-vote-input').css("visibility", "hidden");
+            }
+        });
+
     </script>
 }
-
-

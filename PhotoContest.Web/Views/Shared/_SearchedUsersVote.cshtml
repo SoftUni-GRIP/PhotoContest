@@ -1,0 +1,38 @@
+﻿@model ICollection<PhotoContest.Web.Models.AccountModels.UserSearchViewModel>
+
+<li>
+    @foreach (var user in Model)
+    {
+        <ul>@user.UserName <span class="add-friend-vote" id="@user.Id" username="@user.UserName">add</span></ul>
+    }
+</li>
+
+<script>
+    $('.add-friend-vote').click(function () {
+        var userId = $(this).attr('id');
+
+        $('#added-users-vote').css("visibility", "visible");
+        var username = $(this).attr('username');
+        $('<input>').attr({
+            type: 'hidden',
+            name: "VotersIds",
+            value: userId,
+            id: 'input-for-binder-vote' + userId
+        }).appendTo('#input-binder-create');
+
+        var userDiv = $('<div>');
+        userDiv.append('<p>' + username + '</p>');
+        userDiv.id = 'user-div-section' + userId;
+        var delBtn = $('<button>');
+        delBtn.text('remove');
+        delBtn.click(function () {
+            console.log($('#searched-users-vote').children().length);
+            $(this).parent().remove();
+            $('#input-for-binder-vote' + userId).remove();
+        });
+
+        userDiv.append(delBtn);
+
+        $('#searched-users-vote').append(userDiv);
+    })
+</script>

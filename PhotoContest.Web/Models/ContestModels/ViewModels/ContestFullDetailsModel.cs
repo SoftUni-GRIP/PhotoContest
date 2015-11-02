@@ -30,6 +30,8 @@
 
         public bool CanParticipate { get; set; }
 
+        public bool CanVote { get; set; }
+
         public ICollection<PictureViewModel> Pictures { get; set; } 
 
         public void CreateMappings(AutoMapper.IConfiguration configuration)

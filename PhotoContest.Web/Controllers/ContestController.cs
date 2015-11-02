@@ -39,7 +39,7 @@
             if (ModelState.IsValid && model != null)
             {
                 var contest = Mapper.Map<ContestInputModel, Contest>(model);
-                contest.OwnerId = CurrentUser.Id;
+                contest.OwnerId = this.CurrentUser.Id;
 
                 if (model.UserIds.Count != 0)
                 {
@@ -50,6 +50,14 @@
                     }
                 }
 
+                if (model.VotersIds.Count != 0)
+                {
+                    foreach (var id in model.UserIds)
+                    {
+                        var user = this.Data.Users.Find(id);
+                        contest.Voters.Add(user);
+                    }
+                }
                 foreach (var prize in model.Prizes)
                 {
                     var reward = new Reward()
@@ -89,7 +97,7 @@
                 model.CanEdit = this.CanEdit(contest);    
             }
 
-            if (contest.Status == ContestStatusType.Active)
+            if (contest.Status == ContestStatusType.Active && contest.OwnerId != this.CurrentUser.Id)
             {
                 if (contest.ParticipationStrategyType == ParticipationStrategyType.Open && contest.MaxNumberOfParticipants > contest.Participants.Count)
                 {
@@ -100,7 +108,18 @@
                 {
                     model.CanParticipate = true;
                 }
+
+                if (contest.VotingStrategyType == VotingStrategyType.Closed && contest.MaxNumberOfParticipants > contest.Participants.Count && contest.Voters.Any(v => v.Id == this.CurrentUser.Id))
+                {
+                    model.CanVote = true;
+                }
+
+                if (contest.VotingStrategyType == VotingStrategyType.Open && contest.OwnerId != this.CurrentUser.Id)
+                {
+                    model.CanVote = true;
+                }
             }
+
 
             return View(model);
         }
@@ -108,12 +127,13 @@
         [HttpGet]
         public ActionResult Vote(int id)
         {
-            //todo validation
+            //TODO: Validation
 
             var model = new VoteInput()
             {
                 PictureId = id
             };
+
             return this.PartialView("_Vote", model);
         }
 
@@ -121,7 +141,7 @@
         [ValidateAntiForgeryToken]
         public JsonResult Vote(VoteInput model)
         {
-            //todo check is allowed to vote on this context with custom filter
+            //TODO: check is allowed to vote on this context with custom filter
 
             if (this.ModelState.IsValid && model != null)
             {
@@ -147,14 +167,13 @@
                     this.cache.RemoveContestsFromCache();
                 }
 
-
                 //this.AddNotification("Vote successfull", NotificationType.SUCCESS);
                 var newRating = picture.Votes.Select(x => x.Rating).Average();
 
                 return this.Json(new { stars = newRating });
             }
 
-            this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
+            //this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
             return this.Json("");
         }
 
