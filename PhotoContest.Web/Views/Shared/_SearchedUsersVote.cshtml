@@ -3,15 +3,15 @@
 <li>
     @foreach (var user in Model)
     {
-        <ul>@user.UserName <span class="add-freind" id="@user.Id" username="@user.UserName">add</span></ul>
+        <ul>@user.UserName <span class="add-friend-vote" id="@user.Id" username="@user.UserName">add</span></ul>
     }
 </li>
 
 <script>
-    $('.add-freind').click(function () {
+    $('.add-friend-vote').click(function () {
         var userId = $(this).attr('id');
 
-        $('#added-users').css("visibility", "visible");
+        $('#added-users-vote').css("visibility", "visible");
         var username = $(this).attr('username');
         $('<input>').attr({
             type: 'hidden',
