@@ -102,7 +102,18 @@
             }
         }
 
-        public virtual ICollection<User> Voters { get { return this.voters; } set { this.voters = value; } }
+        public virtual ICollection<User> Voters
+        {
+            get
+            {
+                return this.voters;
+            }
+
+            set
+            {
+                this.voters = value;
+            }
+        }
         public DateTime CreatedOn { get; set; }
     }
 }

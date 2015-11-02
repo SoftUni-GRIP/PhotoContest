@@ -39,7 +39,7 @@
             if (ModelState.IsValid && model != null)
             {
                 var contest = Mapper.Map<ContestInputModel, Contest>(model);
-                contest.OwnerId = CurrentUser.Id;
+                contest.OwnerId = this.CurrentUser.Id;
 
                 if (model.UserIds.Count != 0)
                 {
@@ -108,7 +108,18 @@
                 {
                     model.CanParticipate = true;
                 }
+
+                if (contest.VotingStrategyType == VotingStrategyType.Closed && contest.MaxNumberOfParticipants > contest.Participants.Count && contest.Voters.Any(v => v.Id == this.CurrentUser.Id))
+                {
+                    model.CanVote = true;
+                }
+
+                if (contest.VotingStrategyType == VotingStrategyType.Open)
+                {
+                    model.CanVote = true;
+                }
             }
+
 
             return View(model);
         }
