@@ -16,14 +16,14 @@
 
         public static IEnumerable<PhotoContest.Models.Contest> WhereUserIsParticipant(this IEnumerable<PhotoContest.Models.Contest> source)
         {
-            source = source.Where(c => c.Participants.Any(p => p.Id == HttpContext.Current.User.Identity.GetUserId()));
+            source = source.Where(c => c.Participants.Any(p => p.Id == HttpContext.Current.User.Identity.GetUserId()) || c.Pictures.Any(pic => pic.User.Id == HttpContext.Current.User.Identity.GetUserId()));
             
             return source;
         }
 
         public static IEnumerable<PhotoContest.Models.Contest> WhereUserIsVoter(this IEnumerable<PhotoContest.Models.Contest> source)
         {
-            source = source.Where(c => c.Voters.Any(v => v.Id == HttpContext.Current.User.Identity.GetUserId()));
+            source = source.Where(c => c.Voters.Any(v => v.Id == HttpContext.Current.User.Identity.GetUserId())|| c.Pictures.Any(pic => pic.Votes.Any(vot => vot.UserId == HttpContext.Current.User.Identity.GetUserId())));
 
             return source;
         }
