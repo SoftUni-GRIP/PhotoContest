@@ -1042,6 +1042,8 @@
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Shared\_SearchedUsersVote.cshtml" />
     <Content Include="Views\MyContest\Index.cshtml" />
+    <Content Include="Views\MyContest\Participated.cshtml" />
+    <Content Include="Views\MyContest\Voted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
