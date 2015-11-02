@@ -1,0 +1,31 @@
+﻿@model PhotoContest.Web.Models.PictureViewModel
+
+<div class="modal-header">
+    <h4 class="modal-title">Are you sure you want to delete this picture?</h4>
+    <hr />
+    <div class="modal-body">
+        <div class="input-group">
+            <img src="@Model.Url" alt="picture" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        @using (Ajax.BeginForm("DeletePicture", "Upload", new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        OnSuccess = "redirectToPage"
+    }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            <input type="submit" class="btn btn-danger" value="Delete" />
+        }
+    </div>
+</div>
+
+<script>
+    function redirectToPage(data) {
+        if (data.Message === "home") {
+            document.location.href = "/";
+        }
+    }
+</script>

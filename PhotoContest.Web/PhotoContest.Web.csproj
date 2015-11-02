@@ -1057,12 +1057,12 @@
     <Content Include="Views\MyContest\Index.cshtml" />
     <Content Include="Views\MyContest\Participated.cshtml" />
     <Content Include="Views\MyContest\Voted.cshtml" />
+    <Content Include="Views\Upload\_DeletePicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="temp\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
