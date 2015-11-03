@@ -7,15 +7,13 @@
     using Infrastructure.CacheService;
     using Models.AccountModels;
     using Models.ContestModels.ViewModels;
-    using Models.HomeControllerModels;
+    using Infrastructure.Linq;
 
     public class HomeController : BaseController
     {
-
         private ICacheService cache;
 
-        public HomeController(IPhotoContestData data, ICacheService cache)
-            : base(data)
+        public HomeController(IPhotoContestData data, ICacheService cache) : base(data)
         {
             this.cache = cache;
         }
@@ -23,33 +21,12 @@
         public ActionResult Index()
         {
             var contests = this.cache.Contests
-                    .AsQueryable()
-                    .Project()
-                    .To<ContestBasicDetails>()
-                    .ToList();
+                                     .AsQueryable()
+                                     .Project()
+                                     .To<ContestBasicDetails>()
+                                     .ToList();
 
-            var model = new HomePageViewModel()
-            {
-                ContestBasicDetails = contests,
-                CurrentUserId = this.CurrentUser == null ? null : this.CurrentUser.Id,
-               // IsAdmin = this.IsAdmin()
-            };
-
-            return View(model);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(CreateHomePageViewModel(contests));
         }
 
         public ActionResult RenderUsersSearchForm()
@@ -60,22 +37,24 @@
         public ActionResult SearchUsers(string path)
         {
             var users = this.Data.Users
-                .All()
-                .Where(x => x.UserName.StartsWith(path))
-                .Project()
-                .To<UserSearchViewModel>()
-                .ToList();
+                                 .All()
+                                 .WhereUsernameStartsWith(path)
+                                 .Project()
+                                 .To<UserSearchViewModel>()
+                                 .ToList();
+            
             return this.PartialView("_SearchedUsers", users);
         }
 
         public ActionResult SearchUsersVote(string input)
         {
             var users = this.Data.Users
-                .All()
-                .Where(x => x.UserName.StartsWith(input))
-                .Project()
-                .To<UserSearchViewModel>()
-                .ToList();
+                                 .All()
+                                 .WhereUsernameStartsWith(input)
+                                 .Project()
+                                 .To<UserSearchViewModel>()
+                                 .ToList();
+
             return this.PartialView("_SearchedUsersVote", users);
         }
     }

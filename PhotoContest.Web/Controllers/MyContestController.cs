@@ -1,18 +1,12 @@
-﻿using PhotoContest.Common.Enums;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
     using System.Web.Mvc;
     using System.Linq;
-    using System.Collections.Generic;
     using Data.Contracts;
-    using Infrastructure.CacheService;
-    using AutoMapper.QueryableExtensions;
     using Models.ContestModels.ViewModels;
-    using Models.HomeControllerModels;
-    using PagedList;
-    using Common;
+    using Infrastructure.CacheService;
     using Infrastructure.Linq;
+    using AutoMapper.QueryableExtensions;
 
     [Authorize]
     public class MyContestController : BaseController
@@ -24,60 +18,39 @@ namespace PhotoContest.Web.Controllers
             this.cache = cache;
         }
 
-        public ActionResult Index() //int? page
+        public ActionResult Index()
         {
             var contests = this.cache.Contests.WhereUserIsTheContestOwner()
                                               .AsQueryable()
                                               .Project()
                                               .To<ContestBasicDetails>()
-                                              //.ToPagedList(page ?? GlobalConstants.DefaultStartingPage, GlobalConstants.DefaultPageSize)
                                               .ToList();
 
-            this.AddToastMessage("Welcome", this.CurrentUser.UserName, ToastType.Success);
-
-            var model = new HomePageViewModel()
-            {
-                ContestBasicDetails = contests,
-                CurrentUserId = this.CurrentUser == null ? null : this.CurrentUser.Id,
-            };
-
-            return View(model);
+            return View(CreateHomePageViewModel(contests));
         }
 
-        public ActionResult Participated() //int? page
+        
+
+        public ActionResult Participated()
         {
             var contests = this.cache.Contests.WhereUserIsParticipant()
                                               .AsQueryable()
                                               .Project()
                                               .To<ContestBasicDetails>()
-                                              //.ToPagedList(GlobalConstants.DefaultStartingPage, GlobalConstants.DefaultPageSize)
                                               .ToList();
 
-            var model = new HomePageViewModel()
-            {
-                ContestBasicDetails = contests,
-                CurrentUserId = this.CurrentUser == null ? null : this.CurrentUser.Id,
-            };
-
-            return View(model);
+            return View(CreateHomePageViewModel(contests));
         }
 
-        public ActionResult Voted() //int? page
+        public ActionResult Voted()
         {
             var contests = this.cache.Contests.WhereUserIsVoter()
                                               .AsQueryable()
                                               .Project()
                                               .To<ContestBasicDetails>()
-                                              //.ToPagedList(GlobalConstants.DefaultStartingPage, GlobalConstants.DefaultPageSize)
                                               .ToList();
 
-            var model = new HomePageViewModel()
-            {
-                ContestBasicDetails = contests,
-                CurrentUserId = this.CurrentUser == null ? null : this.CurrentUser.Id,
-            };
-
-            return View(model);
+            return View(CreateHomePageViewModel(contests));
         }
     }
 }

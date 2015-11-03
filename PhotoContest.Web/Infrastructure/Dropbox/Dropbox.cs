@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using DropNet;
-
-namespace PhotoContest.Web.Infrastructure.Dropbox
+﻿namespace PhotoContest.Web.Infrastructure.Dropbox
 {
+    using System;
+    using System.IO;
+    using DropNet;
+
     public static class Dropbox
     {
         private static DropNetClient client;
@@ -22,6 +19,7 @@ namespace PhotoContest.Web.Infrastructure.Dropbox
             var random = new Random();
             string fullFileName = "" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + random.Next(99) + "_" + fileName;
             client.UploadFile("/" + AppKeys.DropboxFolder + "/", fullFileName, fileStream);
+
             return fullFileName;
         }
 
@@ -30,6 +28,7 @@ namespace PhotoContest.Web.Infrastructure.Dropbox
             var random = new Random();
             string fullFileName = "" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + random.Next(99) + "_" + fileName;
             client.UploadFile("/" + AppKeys.DropboxFolder + "/" + subFolder + "/", fullFileName, fileStream);
+
             return fullFileName;
         }
 

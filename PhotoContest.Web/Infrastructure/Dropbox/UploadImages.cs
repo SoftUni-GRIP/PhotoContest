@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Hosting;
-using ImageResizer;
-
-namespace PhotoContest.Web.Infrastructure.Dropbox
+﻿namespace PhotoContest.Web.Infrastructure.Dropbox
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Web;
+    using System.Web.Hosting;
+    using ImageResizer;
+
     public static class UploadImages
     {
         internal static List<string> UploadImage(HttpPostedFileBase upload, bool isProfile)

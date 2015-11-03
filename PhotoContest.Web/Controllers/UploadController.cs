@@ -2,28 +2,25 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web;
     using System.Web.Mvc;
     using AutoMapper;
     using Extensions;
     using Models;
-    using Models.ContestModels.ViewModels;
-    using PhotoContest.Data.Contracts;
+    using Data.Contracts;
     using PhotoContest.Models;
-    using PhotoContest.Web.Infrastructure.Dropbox;
-    using PhotoContest.Data;
+    using Infrastructure.Dropbox;
+    using Data;
 
+    [Authorize, ValidateAntiForgeryToken]
     public class UploadController : BaseController
     {
         public UploadController() : base(new PhotoContestData(new PhotoContextDbContext()))
         {
         }
 
-        public UploadController(IPhotoContestData data)
-            : base(data)
+        public UploadController(IPhotoContestData data) : base(data)
         {
-
         }
 
         [HttpPost]
@@ -41,6 +38,7 @@
                     CreatedOn = DateTime.Now,
                     Url = Dropbox.Download(paths[0])
                 };
+
                 contest.Pictures.Add(photo);
             }
 
@@ -60,7 +58,6 @@
 
         public JsonResult DeletePicture(PictureViewModel model)
         {
-            //TODO Validation
             var picture = this.Data.Pictures.Find(model.Id);
 
             if (picture != null)
@@ -73,27 +70,6 @@
 
             this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
             return this.Json(new { Message = "error" }, JsonRequestBehavior.AllowGet);
-        }
-
-        
-    }
- 
-}
-
-
-        private void DeletePicturetData(Picture picture)
-        {
-            var votes = picture.Votes.ToList();
-
-            for (int i = 0; i < votes.Count; i++)
-            {
-                var vote = votes[i];
-                this.Data.Votes.Delete(vote);
-            }
-
-            this.Data.Pictures.Delete(picture);
-
-            this.Data.SaveChanges();
         }
     }
 }

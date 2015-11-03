@@ -10,6 +10,9 @@
     using PhotoContest.Models;
     using Common.Enums;
     using Infrastructure.Notifications;
+    using System.Collections.Generic;
+    using Models.ContestModels.ViewModels;
+    using Models.HomeControllerModels;
 
     public class BaseController : Controller
     {
@@ -69,9 +72,6 @@
             }
 
             this.Data.Contests.Delete(contest);
-
-           
-
         }
 
         protected void DeletePicturetData(Picture picture)
@@ -85,9 +85,16 @@
             }
 
             this.Data.Pictures.Delete(picture);
+        }
 
-         
-
+        protected HomePageViewModel CreateHomePageViewModel(List<ContestBasicDetails> contests)
+        {
+            var model = new HomePageViewModel()
+            {
+                ContestBasicDetails = contests,
+                CurrentUserId = this.CurrentUser == null ? null : this.CurrentUser.Id,
+            };
+            return model;
         }
     }
 }

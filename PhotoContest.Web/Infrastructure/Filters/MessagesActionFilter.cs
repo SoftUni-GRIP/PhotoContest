@@ -9,8 +9,8 @@
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            // Check for incoming Toastr objects, in case we've been redirected here
             BaseController controller = filterContext.Controller as BaseController;
+
             if (controller != null)
             {
                 controller.Toastr = (controller.TempData["Toastr"] as Toastr) ?? new Toastr();
@@ -22,6 +22,7 @@
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             BaseController controller = filterContext.Controller as BaseController;
+
             if (filterContext.Result.GetType() == typeof(ViewResult))
             {
                 if (controller != null)
