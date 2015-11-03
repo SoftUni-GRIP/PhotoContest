@@ -74,7 +74,26 @@
             this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
             return this.Json(new { Message = "error" }, JsonRequestBehavior.AllowGet);
         }
+
         
     }
  
+}
+
+
+        private void DeletePicturetData(Picture picture)
+        {
+            var votes = picture.Votes.ToList();
+
+            for (int i = 0; i < votes.Count; i++)
+            {
+                var vote = votes[i];
+                this.Data.Votes.Delete(vote);
+            }
+
+            this.Data.Pictures.Delete(picture);
+
+            this.Data.SaveChanges();
+        }
+    }
 }
