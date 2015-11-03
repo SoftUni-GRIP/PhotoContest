@@ -1,0 +1,30 @@
+﻿@using PhotoContest.Web.Infrastructure.Notifications
+
+@if (ViewData.ContainsKey("Toastr"))
+{
+    Toastr toastr = ViewData["Toastr"] as Toastr;
+    if (toastr != null)
+    {
+        <script>
+        $(document).ready(function () {
+            toastr.options.closeButton = '@toastr.ShowCloseButton';
+            toastr.options.newestOnTop = '@toastr.ShowNewestOnTop';
+
+            @foreach (ToastMessage message in toastr.ToastMessages)
+            {
+              string toastTypeValue = message.ToastType.ToString("F").ToLower();
+
+              @: var optionsOverride = {  };
+
+              if (message.IsSticky)
+              {
+                @:optionsOverride.timeOut = 0;
+                @:optionsOverride.extendedTimeout = 0;
+              }
+
+              @:toastr['@toastTypeValue']('@message.Message', '@message.Title', optionsOverride);
+            }
+        });
+        </script>
+    }
+}

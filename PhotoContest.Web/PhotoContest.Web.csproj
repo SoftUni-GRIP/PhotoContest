@@ -297,9 +297,12 @@
     <Compile Include="Infrastructure\Mappings\IMapFrom.cs" />
     <Compile Include="Infrastructure\Mappings\IMapTo.cs" />
     <Compile Include="Infrastructure\Mappings\TypesMap.cs" />
+    <Compile Include="Infrastructure\Filters\MessagesActionFilter.cs" />
     <Compile Include="Infrastructure\MetaDataProvider\ExtensibleModelMetadataProvider.cs" />
     <Compile Include="Infrastructure\MetaDataProvider\Filters\LabelConventionFilter.cs" />
     <Compile Include="Infrastructure\MetaDataProvider\IModelMetadataFilter.cs" />
+    <Compile Include="Infrastructure\Notifications\ToastMessage.cs" />
+    <Compile Include="Infrastructure\Notifications\Toastr.cs" />
     <Compile Include="Infrastructure\Utils\ObjectFactory.cs" />
     <Compile Include="Infrastructure\ValidationAttrbutes\EnsureOneElementAttribute.cs" />
     <Compile Include="ModelBinders\EntityModelBinder.cs" />
@@ -670,6 +673,8 @@
     <Content Include="Content\kendo\2015.3.930\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\2015.3.930\Uniform\sprite_kpi_2x.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -706,6 +711,8 @@
     <Content Include="Content\kendo\2015.3.930\fonts\glyphs\KendoUIGlyphs.woff" />
     <Content Include="Content\kendo\2015.3.930\images\kendoui.ttf" />
     <Content Include="Content\kendo\2015.3.930\images\kendoui.woff" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -865,6 +872,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\modalFormInvoker.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1057,6 +1066,7 @@
     <Content Include="Views\MyContest\Index.cshtml" />
     <Content Include="Views\MyContest\Participated.cshtml" />
     <Content Include="Views\MyContest\Voted.cshtml" />
+    <Content Include="Views\Shared\_Toastr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

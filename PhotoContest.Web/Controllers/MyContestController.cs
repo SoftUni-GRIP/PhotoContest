@@ -1,4 +1,6 @@
-﻿namespace PhotoContest.Web.Controllers
+﻿using PhotoContest.Common.Enums;
+
+namespace PhotoContest.Web.Controllers
 {
     using System.Web.Mvc;
     using System.Linq;
@@ -30,6 +32,8 @@
                                               .To<ContestBasicDetails>()
                                               //.ToPagedList(page ?? GlobalConstants.DefaultStartingPage, GlobalConstants.DefaultPageSize)
                                               .ToList();
+
+            this.AddToastMessage("Welcome", this.CurrentUser.UserName, ToastType.Success);
 
             var model = new HomePageViewModel()
             {
