@@ -1,0 +1,31 @@
+﻿@model PhotoContest.Web.Models.UserModels.ViewModels.UserDetails
+
+<div class="modal-header">
+    <h4 class="modal-title">Are you sure you want to delete user with username "@Model.UserName"?</h4>
+    <hr />
+    <div class="modal-body">
+        <div class="input-group">
+           
+        </div>
+    </div>
+    <div class="modal-footer">
+        @using (Ajax.BeginForm("Delete", "User", new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        OnSuccess = "redirectToPage"
+    }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            <input type="submit" class="btn btn-danger" value="Delete" />
+        }
+    </div>
+</div>
+
+<script>
+    function redirectToPage(data) {
+        if (data.Message === "home") {
+            document.location.href = "/";
+        }
+    }
+</script>

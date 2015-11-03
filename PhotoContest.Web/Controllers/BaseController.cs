@@ -4,6 +4,7 @@ using PhotoContest.Web.Infrastructure.Notifications;
 namespace PhotoContest.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Data.Contracts;
@@ -44,6 +45,45 @@ namespace PhotoContest.Web.Controllers
             }
 
             return result;
+        }
+
+        protected void DeleteContestData(Contest contest)
+        {
+            var pictures = contest.Pictures.ToList();
+
+            for (int i = 0; i < pictures.Count; i++)
+            {
+                var picture = pictures[i];
+                var votes = picture.Votes.ToList();
+                for (int j = 0; j < votes.Count; j++)
+                {
+                    var vote = votes[j];
+                    this.Data.Votes.Delete(vote);
+                }
+
+                this.Data.Pictures.Delete(picture);
+            }
+
+            this.Data.Contests.Delete(contest);
+
+           
+
+        }
+
+        protected void DeletePicturetData(Picture picture)
+        {
+            var votes = picture.Votes.ToList();
+
+            for (int i = 0; i < votes.Count; i++)
+            {
+                var vote = votes[i];
+                this.Data.Votes.Delete(vote);
+            }
+
+            this.Data.Pictures.Delete(picture);
+
+         
+
         }
     }
 }

@@ -251,27 +251,10 @@
             return false;
         }
 
-        private void DeleteContestData(Contest contest)
+        private void DeleteContestDataChache(Contest contest)
         {
-            var pictures = contest.Pictures.ToList();
-
-            for (int i = 0; i < pictures.Count; i++)
-            {
-                var picture = pictures[i];
-                var votes = picture.Votes.ToList();
-                for (int j = 0; j < votes.Count; j++)
-                {
-                    var vote = votes[j];
-                    this.Data.Votes.Delete(vote);
-                }
-
-                this.Data.Pictures.Delete(picture);
-            }
-
-            this.Data.Contests.Delete(contest);
-
+            this.DeleteContestData(contest);
             this.Data.SaveChanges();
-
             this.cache.RemoveContestsFromCache();
         }
 

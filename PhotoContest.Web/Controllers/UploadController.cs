@@ -66,6 +66,7 @@
             if (picture != null)
             {
                 this.DeletePicturetData(picture);
+                this.Data.SaveChanges();
                 this.AddNotification("Contest Edited", NotificationType.SUCCESS);
                 return Json(new { Message = "home" }, JsonRequestBehavior.AllowGet);
             }
@@ -73,24 +74,7 @@
             this.AddNotification("Something is worng. Plase try again", NotificationType.ERROR);
             return this.Json(new { Message = "error" }, JsonRequestBehavior.AllowGet);
         }
-
-        private void DeletePicturetData(Picture picture)
-        {
-            var votes = picture.Votes.ToList();
-
-            for (int i = 0; i < votes.Count; i++)
-            {
-                var vote = votes[i];
-                this.Data.Votes.Delete(vote);
-            }
-
-            this.Data.Pictures.Delete(picture);
-
-            this.Data.SaveChanges();
-
-        }
-    
+        
     }
-
  
 }

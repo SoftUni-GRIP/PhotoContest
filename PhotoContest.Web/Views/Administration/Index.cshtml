@@ -7,6 +7,15 @@
     </div>
 </div>
 
+<div id="delete-user-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="delete-user-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="clientsDb">
     @(Html.Kendo().Grid<PhotoContest.Models.User>()
@@ -22,13 +31,16 @@
                                                 .Columns(columns =>
                                                 {
                                                     columns.Bound(c => c.UserName)
-                                                        .Width(240);
+                                                        .Width(210);
                                                     columns.Bound(c => c.Email).Width(190);
-                                                    columns.Bound(c => c.PhoneNumber);
-                                                    columns.Bound(c => c.PhoneNumberConfirmed).Width(240);
+                                                    columns.Bound(c => c.PhoneNumber).Width(120);
+                                                    columns.Bound(c => c.PhoneNumberConfirmed).Width(190);
                                                     columns.Bound(c => c.Id).Title("Edit User").
                                                     Groupable(false)
                                                     .ClientTemplate((@Html.ActionLink("Edit", "Edit", "User", new { Id = "#=Id#" }, new { @class = "btn btn-success", data_modal = "editUser" }).ToHtmlString()));
+                                                    columns.Bound(c => c.Id).Title("Delete User").
+                                                    Groupable(false)
+                                                    .ClientTemplate((@Html.ActionLink("Delete", "Delete", "User", new { Id = "#=Id#" }, new { @class = "btn btn-danger", data_modal = "deleteUser" }).ToHtmlString()));
                                                 })
                                                 .HtmlAttributes(new { style = "height: 380px;" })
                                                 .Scrollable()
@@ -82,8 +94,8 @@
 <script>
 
     function onBound() {
-        console.log($("#grid").data("kendoGrid").dataSource.data().length);
         invokeModalForm('edit-user-modal-content', 'edit-user-modal', "editUser");
+        invokeModalForm('delete-user-modal-content', 'delete-user-modal', "deleteUser");
     }
 </script>
 
