@@ -5,6 +5,7 @@
     using System.Linq;
     using Microsoft.AspNet.Identity;
     using PhotoContest.Models;
+    using System.Data.Entity;
 
     public static class LinqExtensions
     {
@@ -26,6 +27,13 @@
         public static IEnumerable<User> SelectWinners(this IEnumerable<Picture> source, int winnersCount)
         {
             return source.OrderByDescending(p => p.Votes.Average(v => v.Rating)).Select(p => p.User).Take(winnersCount);
+        }
+
+        public static IQueryable<string> SelectWinnersUsernames(this IQueryable<Picture> source, int winnersCount, int id)
+        {
+            return source.Where(x => x.ContestId == id)
+                         .Include("Votes").OrderByDescending(x => x.Votes.Average(v => v.Rating))
+                         .Select(x => x.User.UserName).Take(winnersCount);
         }
 
         public static IQueryable<T> WhereUsernameStartsWith<T>(this IQueryable<T> source, string input) where T : User
