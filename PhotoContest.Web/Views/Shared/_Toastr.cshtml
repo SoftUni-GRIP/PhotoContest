@@ -14,7 +14,7 @@
             {
               string toastTypeValue = message.ToastType.ToString("F").ToLower();
 
-              @: var optionsOverride = {  };
+              @: var optionsOverride = { "positionClass": "toast-top-center", "progressBar": true };
 
               if (message.IsSticky)
               {

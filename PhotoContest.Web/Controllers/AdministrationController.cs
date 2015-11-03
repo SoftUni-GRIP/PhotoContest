@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
     using Data.Contracts;
     using Infrastructure.CacheService;
     using Kendo.Mvc.Extensions;
@@ -15,12 +11,12 @@ namespace PhotoContest.Web.Controllers
     public class AdministrationController : BaseController
     {
          private ICacheService cache;
-         public AdministrationController(IPhotoContestData data, ICacheService cache)
-            : base(data)
-        {
+
+         public AdministrationController(IPhotoContestData data, ICacheService cache) : base(data)
+         {
             this.cache = cache;
-        }
-        // GET: Administration
+         }
+
          public ActionResult Index()
          {
              return View();
@@ -41,7 +37,5 @@ namespace PhotoContest.Web.Controllers
 
              return Json(result);
          }
-
-                
     }
 }

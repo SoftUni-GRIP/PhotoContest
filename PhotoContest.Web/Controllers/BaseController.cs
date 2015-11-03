@@ -1,14 +1,14 @@
-﻿using PhotoContest.Common.Enums;
-using PhotoContest.Web.Infrastructure.Notifications;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
     using System;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using System.Web.Mvc.Expressions;
     using Data.Contracts;
     using Microsoft.AspNet.Identity;
     using PhotoContest.Models;
+    using Common.Enums;
+    using Infrastructure.Notifications;
 
     public class BaseController : Controller
     {
@@ -32,15 +32,19 @@ namespace PhotoContest.Web.Controllers
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {
             var result = base.BeginExecute(requestContext, callback, state);
-            if (User.Identity.IsAuthenticated)
+
+            if (!User.Identity.IsAuthenticated)
             {
-                var currentUserId = User.Identity.GetUserId();
-                CurrentUser = Data.Users.Find(currentUserId);
-                bool isAdmin = User.IsInRole("Administrator");
-                if(isAdmin)
-                {
-                    this.RedirectToAction("Create", "Contest");
-                }
+                return result;
+            }
+
+            var currentUserId = User.Identity.GetUserId();
+            CurrentUser = Data.Users.Find(currentUserId);
+            var isAdmin = User.IsInRole("Administrator");
+
+            if(isAdmin)
+            {
+                this.RedirectToAction<ContestController>(c => c.Create());
             }
 
             return result;

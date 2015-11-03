@@ -3,7 +3,6 @@
     using System;
     using System.Data.Entity;
     using System.Linq;
-    using System.Web.Mvc;
     using AutoMapper;
     using Common.Enums;
     using Data.Contracts;
@@ -13,14 +12,15 @@
     using Models.ContestModels.InputModels;
     using Models.ContestModels.ViewModels;
     using PhotoContest.Models;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Expressions;
 
     [Authorize]
     public class ContestController : BaseController
     {
-
         private ICacheService cache;
-        public ContestController(IPhotoContestData data, ICacheService cache)
-            : base(data)
+
+        public ContestController(IPhotoContestData data, ICacheService cache) : base(data)
         {
             this.cache = cache;
         }
@@ -71,8 +71,8 @@
 
                 this.Data.SaveChanges();
                 this.cache.RemoveContestsFromCache();
-                //TODO: Remove magic strings
-                return RedirectToAction("Index", "Home");
+
+                return this.RedirectToAction<HomeController>(c => c.Index());
             }
 
             return View(model);

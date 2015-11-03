@@ -87,10 +87,6 @@
             this.Data.Pictures.Delete(picture);
 
             this.Data.SaveChanges();
-
         }
-    
     }
-
- 
 }
