@@ -1,4 +1,8 @@
-﻿namespace PhotoContest.Web.Controllers
+﻿using System.Collections.Generic;
+using PhotoContest.Common;
+using PhotoContest.Web.Infrastructure.Linq;
+
+namespace PhotoContest.Web.Controllers
 {
     using System;
     using System.Data.Entity;
@@ -58,6 +62,7 @@
                         contest.Voters.Add(user);
                     }
                 }
+
                 foreach (var prize in model.Prizes)
                 {
                     var reward = new Reward()
@@ -68,7 +73,6 @@
                 }
 
                 this.Data.Contests.Add(contest);
-
                 this.Data.SaveChanges();
                 this.cache.RemoveContestsFromCache();
 
@@ -79,12 +83,10 @@
         }
 
         [HttpGet]
-        //TODO: Filters
         public ActionResult Details(int id)
         {
             var contest = this.Data.Contests.All().Where(x => x.Id == id).Include("Pictures").FirstOrDefault();
 
-            //TODO: Implement Error handling logic
             if (contest == null)
             {
                 throw new NotImplementedException();
@@ -345,30 +347,39 @@
         public JsonResult Finalize(int id)
         {
             var contest = this.Data.Contests.Find(id);
-            contest.ClosedOn = DateTime.Now;
-            contest.Status = ContestStatusType.Finalized;
-            var winners = contest.Pictures
-                .OrderByDescending(p => p.Votes.Average(v => v.Rating))
-                .Select(p => p.User)
-                .Take(contest.WinnersCount);
+            this.FinalizeContest(contest);
 
-            //TODO check if no winners
-            foreach (var winner in winners)
-            {
-                contest.Winners.Add(winner);
-            }
+            var winners = contest.Pictures.SelectWinners(contest.WinnersCount);
+            this.AddWinnersToContest(contest, winners);
 
             this.Data.SaveChanges();
             this.cache.RemoveContestsFromCache();
-            this.AddNotification("Contest successfully finalized!", NotificationType.SUCCESS);
+            this.AddToastMessage(String.Empty, GlobalConstants.ContestFinalizedMessage, ToastType.Success);
 
-            return this.Json(new { Message = "Finalized" });
+            return this.Json(new { Message = GlobalConstants.Finalized });
         }
 
         [HttpGet]
         public ActionResult CreatePrize()
         {
             return this.PartialView("_CreatePrize");
+        }
+
+        private void AddWinnersToContest(Contest contest, IEnumerable<User> winners)
+        {
+            if (contest.Winners.Any())
+            {
+                foreach (var winner in winners)
+                {
+                    contest.Winners.Add(winner);
+                }
+            }
+        }
+
+        private void FinalizeContest(Contest contest)
+        {
+            contest.ClosedOn = DateTime.Now;
+            contest.Status = ContestStatusType.Finalized;
         }
     }
 }
