@@ -12,23 +12,25 @@
     using Infrastructure.Dropbox;
     using Data;
 
-    [Authorize, ValidateAntiForgeryToken]
     public class UploadController : BaseController
     {
-        public UploadController() : base(new PhotoContestData(new PhotoContextDbContext()))
+        public UploadController()
+            : base(new PhotoContestData(new PhotoContextDbContext()))
         {
         }
 
-        public UploadController(IPhotoContestData data) : base(data)
+        public UploadController(IPhotoContestData data)
+            : base(data)
         {
         }
 
         [HttpPost]
+        [Authorize, ValidateAntiForgeryToken]
         public ActionResult Save(IEnumerable<HttpPostedFileBase> files, int contestId)
         {
             var contest = this.Data.Contests.Find(contestId);
 
-            foreach(var file in files)
+            foreach (var file in files)
             {
                 var paths = UploadImages.UploadImage(file, false);
                 var photo = new Picture()
@@ -52,10 +54,11 @@
         {
             var picture = this.Data.Pictures.Find(id);
             var model = Mapper.Map<Picture, PictureViewModel>(picture);
-           
+
             return this.PartialView("_DeletePicture", model);
         }
 
+        [Authorize, ValidateAntiForgeryToken]
         public JsonResult DeletePicture(PictureViewModel model)
         {
             var picture = this.Data.Pictures.Find(model.Id);
