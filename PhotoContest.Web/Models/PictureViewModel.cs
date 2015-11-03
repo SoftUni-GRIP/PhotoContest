@@ -22,6 +22,8 @@
 
         public decimal DisplayRating { get; set; }
 
+        public bool CanEdit { get; set; }
+
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Picture, PictureViewModel>()

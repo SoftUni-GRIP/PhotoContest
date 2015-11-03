@@ -9,6 +9,15 @@
     </div>
 </div>
 
+<div id="delete-modal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="delete-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
         <img src="@Model.Url" alt="picture" />
@@ -21,7 +30,11 @@
             <div class="star-ratings-sprite"><span style="width: @Model.DisplayRating%" id="details-star-rating-@Model.Id" class=" rating"></span></div>
             @if (Convert.ToBoolean(ViewData["canVote"]))
             {
-                @Html.ActionLink("Vote", "Vote", "Contest", new {id = Model.Id}, new {@class = "btn btn-default", data_modal = "vote"})
+                @Html.ActionLink("Vote", "Vote", "Contest", new { id = Model.Id }, new { @class = "btn btn-default", data_modal = "vote" })
+            }
+            @if (Convert.ToBoolean(ViewData["canEdit"]))
+            {
+                <a href=@Url.Action("DeletePicture", "Upload", new { id = Model.Id }) class="btn btn-danger glyphicon glyphicon-trash" data-modal="delete"></a>
             }
         </div>
     </div>
@@ -31,5 +44,6 @@
 
 <script>
     invokeModalForm('vote-modal-content', 'vote-modal', "vote");
+    invokeModalForm('delete-modal-content', 'delete-modal', "delete");
 </script>
 
