@@ -32,7 +32,7 @@
             {
                 @Html.ActionLink("Vote", "Vote", "Contest", new { id = Model.Id }, new { @class = "btn btn-default", data_modal = "vote" })
             }
-            @if (Convert.ToBoolean(ViewData["canEdit"]))
+            @if (Convert.ToBoolean(ViewData["canEdit"]) || Model.Author == this.User.Identity.Name)
             {
                 <a href=@Url.Action("DeletePicture", "Upload", new { id = Model.Id }) class="btn btn-danger glyphicon glyphicon-trash" data-modal="delete"></a>
             }
