@@ -54,8 +54,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Kendo.Mvc">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Telerik\UI for ASP.NET MVC Q3 2015\wrappers\aspnetmvc\Binaries\Mvc5\Kendo.Mvc.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\ExternalLibraries\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
