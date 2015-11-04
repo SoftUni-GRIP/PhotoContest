@@ -29,11 +29,11 @@
             return source.OrderByDescending(p => p.Votes.Average(v => v.Rating)).Select(p => p.User).Take(winnersCount);
         }
 
-        public static IQueryable<string> SelectWinnersUsernames(this IQueryable<Picture> source, int winnersCount, int id)
+        public static IQueryable<User> SelectWinnersUsernames(this IQueryable<Picture> source, int winnersCount, int id)
         {
             return source.Where(x => x.ContestId == id)
                          .Include("Votes").OrderByDescending(x => x.Votes.Average(v => v.Rating))
-                         .Select(x => x.User.UserName).Take(winnersCount);
+                         .Select(x => x.User).Take(winnersCount);
         }
 
         public static IQueryable<T> WhereUsernameStartsWith<T>(this IQueryable<T> source, string input) where T : User

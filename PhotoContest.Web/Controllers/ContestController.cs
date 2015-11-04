@@ -107,7 +107,7 @@
             }
 
             this.AddToastMessage(String.Empty, GlobalConstants.SomethingIsWrongMessage, ToastType.Error);
-            
+
             return this.Json("");
         }
 
@@ -164,7 +164,7 @@
             return this.Json(new { Message = GlobalConstants.Error }, JsonRequestBehavior.AllowGet);
         }
 
-        
+
         [HttpGet]
         public ActionResult DissmisViewInvoker(Contest contest)
         {
@@ -172,7 +172,7 @@
             {
                 return this.HttpNotFound();
             }
-            
+
             var model = Mapper.Map<Contest, ContestBasicDetails>(contest);
 
             return this.PartialView("_DismissContest", model);
@@ -398,22 +398,19 @@
 
         private void AddWinnersToContest(Contest contest, IEnumerable<User> winners)
         {
-            if (contest.Winners.Any())
+            foreach (var winner in winners)
             {
-                foreach (var winner in winners)
-                {
-                    contest.Winners.Add(winner);
-                }
+                contest.Winners.Add(winner);
             }
         }
 
-        private void AddWinnersToContestViewModel(ContestClosedViewModel model, List<string> users)
+        private void AddWinnersToContestViewModel(ContestClosedViewModel model, List<User> users)
         {
             if (users.Any() && model != null)
             {
                 foreach (var winner in users)
                 {
-                    model.Winners.Add(winner);
+                    model.Winners.Add(winner.UserName);
                 }
             }
         }

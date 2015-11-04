@@ -107,3 +107,7 @@ textarea { max-width: 280px; }
   height: 21px;
   display: block;
 }
+
+.thumbnail .contest-picture {
+    max-height: 180px;
+}
