@@ -42,6 +42,16 @@
                     m.MapRightKey("Contest_Id");
                 });
 
+            modelBuilder.Entity<Contest>()
+                .HasMany(u => u.Voters)
+                .WithMany()
+                .Map(m =>
+                {
+                    m.MapLeftKey("ContestId");  // because it is the "left" column, isn't it?
+                    m.MapRightKey("UserId"); // because it is the "right" column, isn't it?
+                    m.ToTable("VotersContest");
+                });
+
             base.OnModelCreating(modelBuilder);
         }
 
