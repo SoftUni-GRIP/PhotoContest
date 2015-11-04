@@ -50,6 +50,7 @@
                 this.Data.Contests.Add(contest);
                 this.Data.SaveChanges();
                 this.cache.RemoveContestsFromCache();
+
                 var hubContext = GlobalHost.ConnectionManager.GetHubContext<BaseHub>();
                 hubContext.Clients.All.userConnected("Created new contest with title "+contest.Title);
 
