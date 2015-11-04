@@ -8,7 +8,7 @@
     using PhotoContest.Data.Contracts;
     using PhotoContest.Models;
 
-    public class MockContainer
+    public class MockRepository
     {
         public Mock<IRepository<Contest>> ContestRepositoryMock { get; set; }
 

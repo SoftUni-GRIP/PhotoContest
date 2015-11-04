@@ -15,9 +15,11 @@
     using Models.ContestModels.ViewModels;
     using PhotoContest.Models;
     using Common;
+    using Hubs;
     using Infrastructure.Linq;
+    using Microsoft.AspNet.SignalR;
 
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class ContestController : BaseController
     {
         private ICacheService cache;
@@ -48,6 +50,8 @@
                 this.Data.Contests.Add(contest);
                 this.Data.SaveChanges();
                 this.cache.RemoveContestsFromCache();
+                var hubContext = GlobalHost.ConnectionManager.GetHubContext<BaseHub>();
+                hubContext.Clients.All.userConnected("Created new contest with title "+contest.Title);
 
                 return this.RedirectToAction<HomeController>(c => c.Index());
             }

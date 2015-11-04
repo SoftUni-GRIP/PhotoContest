@@ -4,7 +4,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.SignalR;
 
-    [Authorize]
+    
     public class BaseHub : Hub
     {
         public override Task OnConnected()

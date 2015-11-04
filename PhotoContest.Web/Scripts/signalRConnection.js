@@ -5,9 +5,9 @@
 
     //example
 
-    //myHub.client.userConnected = function (data) {
-    //    // Set the received serverTime in the span to show in browser
-    //    alert(data);
-    //    console.log(data)
-    //};
+    myHub.client.userConnected = function (data) {
+        // Set the received serverTime in the span to show in browser
+        alert(data);
+        
+    };
 }());
