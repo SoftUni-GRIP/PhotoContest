@@ -123,7 +123,7 @@
         public ActionResult Edit(int id)
         {
             var contest = this.Data.Contests.Find(id);
-            var model = Mapper.Map<Contest, ContestBasicDetails>(contest);
+            var model = Mapper.Map<Contest, ContestFullDetailsModel>(contest);
 
             return this.PartialView("_Edit", model);
         }
@@ -148,7 +148,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Edit(ContestBasicDetails model)
+        public JsonResult Edit(ContestFullDetailsModel model)
         {
             var contest = this.Data.Contests.Find(model.Id);
 
@@ -381,7 +381,7 @@
             this.cache.RemoveContestsFromCache();
         }
 
-        private void EditContestData(Contest contest, ContestBasicDetails model)
+        private void EditContestData(Contest contest, ContestFullDetailsModel model)
         {
             if (contest == null || model == null)
             {
@@ -390,6 +390,10 @@
 
             contest.Title = model.Title;
             contest.Description = model.Description;
+            contest.DeadlineDate = model.DeadlineDate;
+            contest.MaxNumberOfParticipants = model.MaxNumberOfParticipants;
+            contest.ParticipationStrategyType = model.ParticipationStrategyType;
+            contest.VotingStrategyType = model.VotingStrategyType;
 
             this.Data.Contests.Update(contest);
             this.Data.SaveChanges();
