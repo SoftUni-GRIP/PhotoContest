@@ -52,5 +52,16 @@
 
             return View(CreateHomePageViewModel(contests));
         }
+
+        public ActionResult Won()
+        {
+            var contests = this.cache.Contests.WhereUserIsWinner()
+                                              .AsQueryable()
+                                              .Project()
+                                              .To<ContestBasicDetails>()
+                                              .ToList();
+
+            return View(CreateHomePageViewModel(contests));
+        }
     }
 }

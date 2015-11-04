@@ -1,0 +1,8 @@
+﻿@model PhotoContest.Web.Models.HomeControllerModels.HomePageViewModel
+@{
+    ViewBag.Title = "My Won Page";
+}
+
+@Html.DisplayFor(m => m.ContestBasicDetails)
+
+@Html.ActionLink("Back", "Index", "MyContest", null, new { @class = "btn btn-default" })

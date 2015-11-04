@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <ApplicationInsightsResourceId>/subscriptions/1a98dcda-8b05-4601-8369-a881c9ee58f7/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/PhotoContest.Web</ApplicationInsightsResourceId>
     <NuGetPackageImportStamp>1ec3bf6d</NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1076,6 +1077,7 @@
     <Content Include="Views\Shared\_Toastr.cshtml" />
     <Content Include="Views\Upload\_DeletePicture.cshtml" />
     <Content Include="Views\User\_Delete.cshtml" />
+    <Content Include="Views\MyContest\Won.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
