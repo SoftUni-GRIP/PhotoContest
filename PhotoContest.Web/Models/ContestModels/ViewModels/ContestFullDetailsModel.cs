@@ -1,4 +1,7 @@
-﻿namespace PhotoContest.Web.Models.ContestModels.ViewModels
+﻿using System.Linq;
+using PhotoContest.Web.Models.UserModels.ViewModels;
+
+namespace PhotoContest.Web.Models.ContestModels.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -32,12 +35,15 @@
 
         public bool CanVote { get; set; }
 
-        public ICollection<PictureViewModel> Pictures { get; set; } 
+        public ICollection<PictureViewModel> Pictures { get; set; }
+
+        public ICollection<string> Winners { get; set; }
 
         public void CreateMappings(AutoMapper.IConfiguration configuration)
         {
             configuration.CreateMap<Contest, ContestFullDetailsModel>()
-             .ForMember(x => x.Owner, setup => setup.MapFrom(m => m.Owner.UserName));
+                .ForMember(x => x.Owner, setup => setup.MapFrom(m => m.Owner.UserName))
+                .ForMember(x => x.Winners, setup => setup.MapFrom(m => m.Winners.Select(w => w.UserName)));
         }
     }
 }

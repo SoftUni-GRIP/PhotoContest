@@ -74,7 +74,14 @@
         @Html.LabelFor(m => m.ParticipationStrategyType)
         @Html.DisplayFor(m => m.ParticipationStrategyType)
 
-        <br />
+        <br/>
+
+        @if (Model.Status == ContestStatusType.Finalized)
+        {
+            @Html.LabelFor(m => m.Winners)
+            @Html.DisplayFor(m => m.Winners)
+        }
+
         @if (Model.Pictures.Any())
         {
             <h3>Pictures</h3>
