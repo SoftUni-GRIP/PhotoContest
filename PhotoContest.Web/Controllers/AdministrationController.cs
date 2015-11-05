@@ -8,6 +8,7 @@
     using Kendo.Mvc.UI;
     using PhotoContest.Models;
 
+    [Authorize(Roles = "Administrator")]
     public class AdministrationController : BaseController
     {
          private ICacheService cache;
