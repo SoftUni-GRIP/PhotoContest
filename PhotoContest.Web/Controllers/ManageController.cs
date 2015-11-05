@@ -1,4 +1,6 @@
-﻿namespace PhotoContest.Web.Controllers
+﻿using PhotoContest.Web.Models.UserModels.ViewModels;
+
+namespace PhotoContest.Web.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -57,13 +59,11 @@
                                         : "";
 
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var model = new UserDetails
             {
-                HasPassword = HasPassword(),
+                UserName = User.Identity.GetUserName(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+
             };
             return View(model);
         }

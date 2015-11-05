@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace PhotoContest.Web.Controllers
 {
@@ -23,7 +25,35 @@ namespace PhotoContest.Web.Controllers
         {
             this.cache = cache;
         }
-        
+
+        public async Task<ActionResult> Index(ManageController.ManageMessageId? message)
+        {
+            ViewBag.StatusMessage =
+                message == ManageController.ManageMessageId.ChangePasswordSuccess
+                    ? "Your password has been changed."
+                    : message == ManageController.ManageMessageId.SetPasswordSuccess
+                        ? "Your password has been set."
+                        : message == ManageController.ManageMessageId.SetTwoFactorSuccess
+                            ? "Your two-factor authentication provider has been set."
+                            : message == ManageController.ManageMessageId.Error
+                                ? "An error has occurred."
+                                : message == ManageController.ManageMessageId.AddPhoneSuccess
+                                    ? "Your phone number was added."
+                                    : message == ManageController.ManageMessageId.RemovePhoneSuccess
+                                        ? "Your phone number was removed."
+                                        : "";
+
+            var user = this.Data.Users.Find(User.Identity.GetUserId());
+            var model = new UserDetails
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email
+
+            };
+            return View(model);
+        }
 
         [HttpGet]
         public ActionResult Edit(string id)

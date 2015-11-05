@@ -1078,6 +1078,7 @@
     <Content Include="Views\Upload\_DeletePicture.cshtml" />
     <Content Include="Views\User\_Delete.cshtml" />
     <Content Include="Views\MyContest\Won.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
