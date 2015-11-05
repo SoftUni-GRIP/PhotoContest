@@ -19,7 +19,7 @@
     using Infrastructure.Linq;
     using Microsoft.AspNet.SignalR;
 
-    [System.Web.Mvc.Authorize]
+    [System.Web.Mvc.Authorize, ValidateInput(false)]
     public class ContestController : BaseController
     {
         private ICacheService cache;
