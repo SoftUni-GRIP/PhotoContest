@@ -11,20 +11,17 @@
     [Authorize]
     public class MyContestController : BaseController
     {
-        private ICacheService cache;
-
-        public MyContestController(IPhotoContestData data, ICacheService cache) : base(data)
+        public MyContestController(IPhotoContestData data) : base(data)
         {
-            this.cache = cache;
         }
 
         public ActionResult Index()
         {
-            var contests = this.cache.Contests.WhereUserIsTheContestOwner()
-                                              .AsQueryable()
-                                              .Project()
-                                              .To<ContestBasicDetails>()
-                                              .ToList();
+            var contests = this.Data.Contests.All().WhereUserIsTheContestOwner()
+                                                   .AsQueryable()
+                                                   .Project()
+                                                   .To<ContestBasicDetails>()
+                                                   .ToList();
 
             return View(CreateHomePageViewModel(contests));
         }
@@ -33,33 +30,33 @@
 
         public ActionResult Participated()
         {
-            var contests = this.cache.Contests.WhereUserIsParticipant()
-                                              .AsQueryable()
-                                              .Project()
-                                              .To<ContestBasicDetails>()
-                                              .ToList();
+            var contests = this.Data.Contests.All().WhereUserIsParticipant()
+                                                   .AsQueryable()
+                                                   .Project()
+                                                   .To<ContestBasicDetails>()
+                                                   .ToList();
 
             return View(CreateHomePageViewModel(contests));
         }
 
         public ActionResult Voted()
         {
-            var contests = this.cache.Contests.WhereUserIsVoter()
-                                              .AsQueryable()
-                                              .Project()
-                                              .To<ContestBasicDetails>()
-                                              .ToList();
+            var contests = this.Data.Contests.All().WhereUserIsVoter()
+                                                   .AsQueryable()
+                                                   .Project()
+                                                   .To<ContestBasicDetails>()
+                                                   .ToList();
 
             return View(CreateHomePageViewModel(contests));
         }
 
         public ActionResult Won()
         {
-            var contests = this.cache.Contests.WhereUserIsWinner()
-                                              .AsQueryable()
-                                              .Project()
-                                              .To<ContestBasicDetails>()
-                                              .ToList();
+            var contests = this.Data.Contests.All().WhereUserIsWinner()
+                                                   .AsQueryable()
+                                                   .Project()
+                                                   .To<ContestBasicDetails>()
+                                                   .ToList();
 
             return View(CreateHomePageViewModel(contests));
         }
